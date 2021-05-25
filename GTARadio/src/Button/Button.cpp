@@ -34,7 +34,6 @@ bool Button::stateChanged(){
 
             // only toggle the LED if the new button state is HIGH
             if (this->buttonState == HIGH) {
-                //ledState = !ledState;
                 this->lastButtonState = reading;
                 return true;
             }
