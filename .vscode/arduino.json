@@ -1,5 +1,5 @@
 {
-    "sketch": "Radio\\Radio.ino",
+    "sketch": "GTARadio\\Radio.ino",
     "port": "COM4",
     "board": "arduino:avr:uno",
     "programmer": "arduino:avrisp"
