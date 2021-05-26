@@ -68,20 +68,3 @@ set stationName=17_FUNK
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=18_90S_ROCK
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
-
-There is no easy way
-
-FOR /R "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK" %i IN (*.wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK"
-
-//want to 
-	- ignore folder general, time, to
-	- put mono, id into 1 folder
-	- rest into songs folder
-
-FOR /R "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK" %i IN ([] ![]*.wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK\SONGS"
-
-FOR /R "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK" %i IN (\mono_*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK\MONO"
-FOR /R "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK" %i IN (\id_*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK\ID" WORKS
-
-JUST DO SONGS LAST AFTER MOVE
-FOR /R "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK" %i IN (\![id_*, mono_*, general_*, to_*, time_*].wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK\SONGS"
