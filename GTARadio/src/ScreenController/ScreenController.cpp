@@ -6,6 +6,7 @@
 ScreenController::ScreenController(uint8_t addr, int x, int y){
     this->x = x;
     this->y = y;
+    this->text = new String[y]; //Need to initialise strings here as empty, otherwise will be random and bug out the screen!
     this->lcd = new LiquidCrystal_I2C(addr, x, y);  //INGORE INTELLISENSE, it works...
 }
 
@@ -14,19 +15,19 @@ void ScreenController::setup(){
     this->lcd->backlight();
     this->lcd->setCursor(0,0);
     this->lcd->print("BOO");
-    this->lcd->scrollDisplayRight();
+    //this->lcd->scrollDisplayRight();
 }
 
 void ScreenController::setLine(int lineNo, String text){
     this->lcd->setCursor(0, lineNo);
-    //this->lcd->print("                    "); //THIS LINE CAUSES TROUBLE; JUST USE CLEAR!
     this->lcd->print(text);
 }
 
 void ScreenController::update(){
-    this->lcd->clear();
+    //this->lcd->scrollDisplayRight();
+    ///this->lcd->clear();
     for(int i = 0; i < 2; i++){
-        this->lcd->setCursor(0,i);
+        this->lcd->setCursor(1,i);
         this->lcd->print(this->text[i]);
     }
 }

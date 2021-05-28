@@ -7,7 +7,7 @@ public:
     void setup();
     void setText(String *text);
     void setLine(int lineNo, String text);
-    void update();
+    void update();  //Used to auto scroll the screen, if needed
     
 private:
     int x, y;
