@@ -3,6 +3,9 @@ Code for the GTA Radio project.
 
 Arduino project to make a "radio" that plays the music from GTA radio stations. Currently, only GTA V stations have been ripped & confirmed to work.
 
+# Useful notes
+- file and directory names cannot be longer than 8 characters. A full path can be longer than 8 characters thought.
+
 # Commands used to organise stations & songs
 All songs were ripped with OpenIV
 
