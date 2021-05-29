@@ -6,6 +6,28 @@ Arduino project to make a "radio" that plays the music from GTA radio stations. 
 # Useful notes
 - file and directory names cannot be longer than 8 characters. A full path can be longer than 8 characters thought.
 
+someaudiofile.wav won't work
+someaudio/file.wav won't work
+some/audio/file.wav will work
+
+# Commands to bulk rename files
+After having reorganised the files & folders (see the appropriate section), all of the files & folders must also be renamed. This is because the file utility only supports files with names up to 8 characters long.
+
+The files that can be renamed by bulk command are those in GENERAL, MONO, TIME, and TO. INTRO and SONGS have to be done more manually. ID doesn't need any renaming.
+
+dir | rename-item -NewName {$_.name -replace "GENERAL","GEN"}
+dir | rename-item -NewName {$_.name -replace "MONO_SOLO","MONO"}
+dir | rename-item -NewName {$_.name -replace "EVENING","EVE"}
+dir | rename-item -NewName {$_.name -replace "MORNING","MORN"}
+dir | rename-item -NewName {$_.name -replace "TO_AD","TAD"}
+dir | rename-item -NewName {$_.name -replace "TO_NEWS","TNEW"}
+
+BULK
+
+The hardest is renaming BOTH songs & intros to match! Thankfully, song names can still be 7 characters, as there are always less then double-digit song intros per song.
+
+dir | rename-item -NewName {$_.name -replace "TO_NEWS","TNEW"}
+
 # Commands used to organise stations & songs
 All songs were ripped with OpenIV
 
