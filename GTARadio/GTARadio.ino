@@ -18,9 +18,10 @@ TMRpcm tmrpcm;
 
 Potentiometer volumeController = Potentiometer(A0, 10);
 
+StationSplit CLASSIC_ROCK = StationSplit((char*)"Classic Rock", (char*)"01_CROCK"); //Classic Rock completly converted!
 /*
 StationSplit CLASSIC_ROCK = StationSplit((char*)"", (char*)"");
-StationSplit CLASSIC_ROCK = StationSplit((char*)"Classic Rock", (char*)"01_CROCK");
+
 StationSplit NON_STOP_POP = StationSplit((char*)"Non Stop Pop", (char*)"02_POP");
 StationSplit RADIO_LOS_SANTOS = StationSplit((char*)"Radio Los Santos", (char*)"03_HH_N");
 StationSplit CHANNEL_X = StationSplit((char*)"Channel X", (char*)"04_PUNK");
@@ -40,7 +41,7 @@ StationSplit CLASSIC_ROCK = StationSplit((char*)"", (char*)"");*/
 //AbstractStation stations[] = {station1};
 //StationController stationController = StationController(stations);
 
-ScreenController screen = ScreenController(0x27,16,2);    //0x27 for 20x4, 0x3f for 16x2
+ScreenController screen = ScreenController(0x27,20,4);    //0x27 for 20x4, 0x3f for 16x2
 Button buttonA = Button(2);
 Button buttonB = Button(3);
 Button buttonC = Button(7);
@@ -61,9 +62,14 @@ void setup()
         return;   // don't do anything more if not
     }
 
+    char info[32];
+	tmrpcm.listInfo((char*)"RAIN.wav",info,0);
+    screen.setLine(2, info);
+
     tmrpcm.speakerPin = 9;
     tmrpcm.volume(0.5);
-    tmrpcm.play((char*)"CROATTSS.wav");
+    tmrpcm.quality(1); 
+    tmrpcm.play((char*)"RAIN.wav");
 }
 
 void loop()
