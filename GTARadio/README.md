@@ -10,6 +10,14 @@ someaudiofile.wav won't work
 someaudio/file.wav won't work
 some/audio/file.wav will work
 
+Adding the full folder as an album to Groove Music can really bug playback. The wrong file can be played, so don't add it as an album to Groove Music
+
+# Converting Audio
+The library used needs a very specific wav format, or it won't work as intended.
+- Converting Stereo to mono : https://forum.audacityteam.org/viewtopic.php?t=57821
+
+- Not really helpful but in case : https://github.com/TMRh20/TMRpcm/issues/125
+
 # Commands to bulk rename files
 After having reorganised the files & folders (see the appropriate section), all of the files & folders must also be renamed. This is because the file utility only supports files with names up to 8 characters long.
 
@@ -22,11 +30,20 @@ dir | rename-item -NewName {$_.name -replace "MORNING","MORN"}
 dir | rename-item -NewName {$_.name -replace "TO_AD","TAD"}
 dir | rename-item -NewName {$_.name -replace "TO_NEWS","TNEW"}
 
-BULK
+News and Ad files don't need any sort of name, so can be renamed just by incrementing number:
 
-The hardest is renaming BOTH songs & intros to match! Thankfully, song names can still be 7 characters, as there are always less then double-digit song intros per song.
+$i = 0
+Get-ChildItem -Path D:\(ADS or NEWS) -Filter *.wav |
+ForEach-Object {
+   $extension = $_.Extension
+   $newName = "{0:d3}{1}" -f  $i, $extension
+   $i++
+   Rename-Item -Path $_.FullName -NewName $newName
+}
 
-dir | rename-item -NewName {$_.name -replace "TO_NEWS","TNEW"}
+
+The hardest is renaming BOTH songs & intros to match! As I wanted meta data to be added as well (Song Name, Artist, Year), this has to all be done manually.
+
 
 # Commands used to organise stations & songs
 All songs were ripped with OpenIV
@@ -49,7 +66,11 @@ There are a few things we want to do:
 
 First, we want to move all the non-song files into their seperate folders. For some of them, this is already done: general, intro, time, to
 
-set path=PATH_TO_YOUR_FILES
+set PATH_TO_YOUR_FILES=DRIVE:\PATH\TO\YOUR\FILES
+
+News & Ads
+FOR /R "%PATH_TO_YOUR_FILES%\ADS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\ADS"
+FOR /R "%PATH_TO_YOUR_FILES%\NEWS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\NEWS"
 
 Secondly, we want to move all the other non-song files: id and mono
 FOR /R "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK" %i IN (\mono_*.wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK\MONO"
@@ -58,8 +79,6 @@ FOR /R "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK" %i IN (\id_*.wav) DO COPY "%i" "%PAT
 set stationName=18_90S_ROCK
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\mono_*.wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\%stationName%\MONO"
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\id_*.wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\%stationName%\ID"
-
-Move the song folders manually (unfortunately) into the SONGS folder.
 
 In the SONGS folder, execute the following command:
 set stationName=01_CLASS_ROCK
