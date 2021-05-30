@@ -12,13 +12,17 @@ some/audio/file.wav will work
 
 Adding the full folder as an album to Groove Music can really bug playback. The wrong file can be played, so don't add it as an album to Groove Music
 
-# Converting Audio
-The library used needs a very specific wav format, or it won't work as intended.
+# Requesting audio
+As none of the audio belongs to me, I cannot make the converted audio files publicly available. However you can email me and I'll give you a link to download the converted & organized files.
+
+# Converting files yourself
+## Converting Audio
+The library used needs a very specific wav format, or it won't work as intended. Only WAV files are accepted, and they must have a sample rate between 8-32kHz and encoded in Unsigned 8-BIT PCM.
 - Converting Stereo to mono : https://forum.audacityteam.org/viewtopic.php?t=57821
 
 - Not really helpful but in case : https://github.com/TMRh20/TMRpcm/issues/125
 
-# Commands to bulk rename files
+## Commands to bulk rename files
 After having reorganised the files & folders (see the appropriate section), all of the files & folders must also be renamed. This is because the file utility only supports files with names up to 8 characters long.
 
 The files that can be renamed by bulk command are those in GENERAL, MONO, TIME, and TO. INTRO and SONGS have to be done more manually. ID doesn't need any renaming.
@@ -45,7 +49,7 @@ ForEach-Object {
 The hardest is renaming BOTH songs & intros to match! As I wanted meta data to be added as well (Song Name, Artist, Year), this has to all be done manually.
 
 
-# Commands used to organise stations & songs
+## Commands used to organise stations & songs
 All songs were ripped with OpenIV
 
 If you have ripped the songs as well, you will need to organise them to be usable in this program with the commands below, IN THE ORDER THEY APPEAR. Be warned that you will also need about 17GB for storage.
