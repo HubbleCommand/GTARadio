@@ -20,8 +20,8 @@ void ScreenController::setup(){
 
 void ScreenController::setLine(int lineNo, String text){
     this->lcd->setCursor(0, lineNo);
-    this->lcd->print(text);
-}
+    this->lcd->print(text);     //TODO text can sometimes overflow on the lines ABOVE! Set the classes' text variable, but only print the x amount of characters per line!
+}  
 
 void ScreenController::update(){
     //this->lcd->scrollDisplayRight();
