@@ -1,23 +1,21 @@
 # GTA Radio Arduino
-Code for the GTA Radio project.
-
 Arduino project to make a "radio" that plays the music from GTA radio stations. Currently, only GTA V stations have been ripped & confirmed to work.
 
 # Useful notes
-- file and directory names cannot be longer than 8 characters. A full path can be longer than 8 characters thought.
+File and directory names cannot be longer than 8 characters. A full path can be longer than 8 characters.
 
 someaudiofile.wav won't work
 someaudio/file.wav won't work
 some/audio/file.wav will work
 
-Adding the full folder as an album to Groove Music can really bug playback. The wrong file can be played, so don't add it as an album to Groove Music
+Adding the full folder as an album to Groove Music can really bug playback, and wrong files can be played!
 
 # Requesting audio
-As none of the audio belongs to me, I cannot make the converted audio files publicly available. However you can email me and I'll give you a link to download the converted & organized files.
+As none of the audio belongs to me, I cannot make the converted audio files publicly available. However you can email me and I'll give you a link to the converted & organized files. Not all stations have been prepared, as some require vast amounts of manual conversion.
 
 # Converting files yourself
 ## Converting Audio
-The library used needs a very specific wav format, or it won't work as intended. Only WAV files are accepted, and they must have a sample rate between 8-32kHz and encoded in Unsigned 8-BIT PCM.
+The audio library used needs a very specific wav format, or it won't work as intended. Only WAV files are accepted, and they must have a sample rate between 8-32kHz and encoded in Unsigned 8-BIT PCM. (GTA V is encoded at 48 kHz, some at 44100Hz, with 32 bit something)
 - Converting Stereo to mono : https://forum.audacityteam.org/viewtopic.php?t=57821
 
 - Not really helpful but in case : https://github.com/TMRh20/TMRpcm/issues/125
