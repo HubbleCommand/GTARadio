@@ -54,7 +54,6 @@ int lastPotState;
 void setup()
 {
     screen.setup();
-
     butNextStation.setup();
     butPrevStation.setup();
 
@@ -62,18 +61,10 @@ void setup()
         return;   // don't do anything more if not
     }
 
-    char info[32];
-	//tmrpcm.listInfo((char*)"RAIN.wav",info,0);
-    //screen.setLine(2, info);
-
     tmrpcm.speakerPin = 9;
     tmrpcm.volume(0.5);
     tmrpcm.quality(1);
-    //tmrpcm.play((char*)"NEWS/046.wav");
-    //tmrpcm.play((char*)"01_CROCK/SONGS/ATTSS.wav");
-
     selectedStationIndex = random(0, NUMBER_OF_STATIONS - 1);
-
     screen.setLine(0, "GTA Radio");
 }
 
@@ -81,7 +72,7 @@ void audioLength(char* source){ //TODO check if need
     //https://github.com/TMRh20/TMRpcm/issues/141
 }
 
-void startType0(Station station){
+void startType0(Station station){   //Unsplit
     tmrpcm.disable();
     char* name_with_extension;
     name_with_extension = (char*) malloc(strlen(station.source)+1+8);
@@ -96,13 +87,18 @@ void startType0(Station station){
     free(name_with_extension);
 }
 
-void startType1(Station station){
+void startType1(Station station){   //Split
     tmrpcm.disable();
     screen.setLine(2, "TODO");
 }
 
-void startType2(Station station){
+void startType2(Station station){   //Talkshow
     tmrpcm.disable();
+
+    char info[32];
+	//tmrpcm.listInfo((char*)"RAIN.wav",info,0);
+    //screen.setLine(2, info);
+
     screen.setLine(2, "TODO");
 }
 
@@ -156,9 +152,9 @@ void loop()
         lastPotState = reading;
         int volume = map(reading, 0, 1023, 0, 7);
         tmrpcm.setVolume(volume);
+
         char* tmpString = new char[8];
         sprintf(tmpString, "VOL :  %i", volume);
-        //screen.setLine(LCD_VOL_LINE, "VOL : " + String(volume));
         screen.setLine(LCD_VOL_LINE, tmpString);
         free(tmpString);
     }
