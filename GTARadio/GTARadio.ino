@@ -12,6 +12,8 @@
 #define LCD_SONG_LINE 2
 #define LCD_VOL_LINE 3
 const char* src0 = "/SRC.wav";
+const int advCount PROGMEM = 96;
+const int newsCount PROGMEM = 107;
 
 TMRpcm tmrpcm;
 ScreenController screen = ScreenController(0x27,20,4);    //0x27 for 20x4, 0x3f for 16x2
@@ -64,42 +66,88 @@ void setup()
     tmrpcm.speakerPin = 9;
     tmrpcm.volume(0.5);
     tmrpcm.quality(1);
-    selectedStationIndex = random(0, NUMBER_OF_STATIONS - 1);
+    selectedStationIndex = random(NUMBER_OF_STATIONS);   //DON't -1 ! the max is EXCLUSIVE
+    handleStationChange(0);
     screen.setLine(0, "GTA Radio");
 }
 
-void audioLength(char* source){ //TODO check if need
+int audioLength(char* source){ //TODO check if need
     //https://github.com/TMRh20/TMRpcm/issues/141
+}
+
+int fileCount(char* source){
+    File dir = SD.open(source);
+    int count = 0;
+
+    while(true){
+        File entry =  dir.openNextFile();
+        if(!entry){
+            break;
+        }
+
+        if (entry.isDirectory()) {
+            
+        } else {
+            count++;
+        }
+
+        entry.close();
+    }
+
+    return count;
 }
 
 void startType0(Station station){   //Unsplit
     tmrpcm.disable();
+    screen.setLine(1, (char*)station.name);
+
     char* name_with_extension;
     name_with_extension = (char*) malloc(strlen(station.source)+1+8);
     strcpy(name_with_extension, station.source); 
     strcat(name_with_extension, src0);
-    //tmrpcm.play((char*)station.source);
     tmrpcm.play(name_with_extension, millis() / 1000);
     tmrpcm.loop(1);
-    //screen.setLine(2, station.name);
     screen.setLine(2, name_with_extension);
-    screen.setLine(3, (char*)station.source);
     free(name_with_extension);
 }
 
 void startType1(Station station){   //Split
     tmrpcm.disable();
+    screen.setLine(1, (char*)station.name);
+
     screen.setLine(2, "TODO");
 }
 
 void startType2(Station station){   //Talkshow
     tmrpcm.disable();
+    screen.setLine(1, (char*)station.name);
 
-    char info[32];
+    int selectedTalk = random(4);   //Both talkshow stations only have 4 monos, so good
+
+    char* name_with_extension;
+    name_with_extension = (char*) malloc(strlen(station.source)+1+10);
+    strcpy(name_with_extension, station.source); 
+    
+
+    char* tmpString = new char[13];
+    sprintf(tmpString, "/MONO/%i.wav", selectedTalk);
+
+    strcat(name_with_extension, tmpString);
+
+    tmrpcm.play(name_with_extension, millis() / 1000);
+    tmrpcm.loop(1);
+
+    //TODO printing info causes a crash
+    //screen.setLine(2, name_with_extension);
+
+    //char info[32];
 	//tmrpcm.listInfo((char*)"RAIN.wav",info,0);
+    //tmrpcm.listInfo(name_with_extension,info,0);
     //screen.setLine(2, info);
 
-    screen.setLine(2, "TODO");
+    free(name_with_extension);
+    free(tmpString);
+    //free(info);
 }
 
 void handleStationChange(bool upOrDown){
@@ -153,7 +201,7 @@ void loop()
         int volume = map(reading, 0, 1023, 0, 7);
         tmrpcm.setVolume(volume);
 
-        char* tmpString = new char[8];
+        char* tmpString = new char[9];  //Needs to be 9
         sprintf(tmpString, "VOL :  %i", volume);
         screen.setLine(LCD_VOL_LINE, tmpString);
         free(tmpString);
