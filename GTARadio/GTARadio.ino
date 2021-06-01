@@ -107,7 +107,6 @@ void startType0(Station station){   //Unsplit
     strcat(name_with_extension, src0);
     tmrpcm.play(name_with_extension, millis() / 1000);
     tmrpcm.loop(1);
-    screen.setLine(2, name_with_extension);
     free(name_with_extension);
 }
 
@@ -135,12 +134,11 @@ void startType2(Station station){   //Talkshow
     strcat(name_with_extension, tmpString);
 
     tmrpcm.play(name_with_extension, millis() / 1000);
-    tmrpcm.loop(1);
 
     //TODO printing info causes a crash
     //screen.setLine(2, name_with_extension);
 
-    //char info[32];
+    //char info[50];
 	//tmrpcm.listInfo((char*)"RAIN.wav",info,0);
     //tmrpcm.listInfo(name_with_extension,info,0);
     //screen.setLine(2, info);
