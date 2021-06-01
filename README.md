@@ -43,6 +43,8 @@ ForEach-Object {
    Rename-Item -Path $_.FullName -NewName $newName
 }
 
+You can then remove the leading zeroes by running the following command twice
+dir | rename-item -NewName {$_.name -replace "^0",""}
 
 The hardest is renaming BOTH songs & intros to match! As I wanted meta data to be added as well (Song Name, Artist, Year), this has to all be done manually.
 
