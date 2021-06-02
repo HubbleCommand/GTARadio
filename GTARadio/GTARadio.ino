@@ -6,7 +6,7 @@
 #include <TMRpcm.h>
 #include <avr/pgmspace.h>   //For PROGMEM
 #define SD_ChipSelectPin 4
-#define NUMBER_OF_STATIONS 8
+#define NUMBER_OF_STATIONS 6
 #define LCD_INTRO_LINE 0
 #define LCD_CHANNEL_LINE 1
 #define LCD_SONG_LINE 2
@@ -24,25 +24,26 @@ struct Station {
     const char source [9]; //While it can be smaller, this is easy
     const char* name;
     char type; //0 - Unsplit, 1 - Split, 2 - Talkshow   //char is used instead of int as it is 1 instead of 2 bytes
+    char songCount;
 };
 
 //Storing these strings takes a lot of space, so put them in FLASH instead of SRAM. No other memory management to do as it is flash and is reset on each powerup.
 //TODO check wtf is going on here, only uses 2% of SRAM? Probably because struct uses pntrs, not the actual thing ? Still would take more space...
 const Station stations[NUMBER_OF_STATIONS] /*PROGMEM*/ = {
-    {"01_CROCK", "Classic Rock", 1},
-    {"02_POP", "Non Stop Pop", 1},
+    //{"01_CROCK", "Classic Rock", 1},
+    {"02_POP", "Non Stop Pop", 1, 42},
     //{"03_HH_N", "Radio Los Santos", 1},
     //{"04_PUNK", "Channel X", 1},
-    {"05_T1", "West Coast Talk Radio", 2},
+    {"05_T1", "West Coast Talk Radio", 2, 4},
     //{"06_CUNT", "Rebel Radio", 1},
-    {"07_DAN1", "Soulwax FM", 0},
-    {"08_MEX", "East Los FM", 0},
+    {"07_DAN1", "Soulwax FM", 0, 1},
+    {"08_MEX", "East Los FM", 0, 1},
     //{"09_HH_0", "West Coast Classics", 1},
     //NO No10
-    {"11_T2", "Blaine County Radio", 2},
+    {"11_T2", "Blaine County Radio", 2, 4},
     //{"12_REGG", "Blue Ark FM", 1},
-    {"13_JAZZ", "WorldWide FM", 0},
-    {"14_DAN2", "FlyLo FM", 0},
+    {"13_JAZZ", "WorldWide FM", 0, 1},
+    //{"14_DAN2", "FlyLo FM", 0, 1},
     //{"15_MOTWN", "Low Down", 1},
     //{"16_SILAKE", "Radio Mirror Park", 1},
     //{"17_FUNK", "Space", 1},
@@ -55,6 +56,8 @@ int lastPotState;
 
 void setup()
 {
+    randomSeed(analogRead(A0));
+
     screen.setup();
     butNextStation.setup();
     butPrevStation.setup();
@@ -65,40 +68,13 @@ void setup()
 
     tmrpcm.speakerPin = 9;
     tmrpcm.volume(0.5);
-    tmrpcm.quality(1);
+    //tmrpcm.quality(1);
     selectedStationIndex = random(NUMBER_OF_STATIONS);   //DON't -1 ! the max is EXCLUSIVE
     handleStationChange(0);
     screen.setLine(0, "GTA Radio");
 }
 
-int audioLength(char* source){ //TODO check if need
-    //https://github.com/TMRh20/TMRpcm/issues/141
-}
-
-int fileCount(char* source){
-    File dir = SD.open(source);
-    int count = 0;
-
-    while(true){
-        File entry =  dir.openNextFile();
-        if(!entry){
-            break;
-        }
-
-        if (entry.isDirectory()) {
-            
-        } else {
-            count++;
-        }
-
-        entry.close();
-    }
-
-    return count;
-}
-
 void startType0(Station station){   //Unsplit
-    tmrpcm.disable();
     screen.setLine(1, (char*)station.name);
 
     char* name_with_extension;
@@ -111,16 +87,34 @@ void startType0(Station station){   //Unsplit
 }
 
 void startType1(Station station){   //Split
-    tmrpcm.disable();
     screen.setLine(1, (char*)station.name);
 
-    screen.setLine(2, "TODO");
+    int selSong = random((int)station.songCount);
+
+    char* namelov;
+    namelov = (char*) malloc(strlen(station.source)+1+14);
+    strcpy(namelov, station.source); 
+    
+
+    char* tString = new char[13];
+    sprintf(tString, "/SONGS/%i.wav", selSong);
+
+    strcat(namelov, tString);
+    screen.setLine(2, namelov);
+
+    tmrpcm.play(namelov);
+
+    free(namelov);
+    free(tString);
+
+    //screen.setLine(2, "TODO");
 }
 
 void startType2(Station station){   //Talkshow
-    tmrpcm.disable();
     screen.setLine(1, (char*)station.name);
 
+    //TODO check if int can even work, can SERIOUSLY bug!
+    //int selectedTalk = random((int)station.songCount);   //Both talkshow stations only have 4 monos, so good
     int selectedTalk = random(4);   //Both talkshow stations only have 4 monos, so good
 
     char* name_with_extension;
@@ -138,7 +132,7 @@ void startType2(Station station){   //Talkshow
     //TODO printing info causes a crash
     //screen.setLine(2, name_with_extension);
 
-    //char info[50];
+    //char info[32];
 	//tmrpcm.listInfo((char*)"RAIN.wav",info,0);
     //tmrpcm.listInfo(name_with_extension,info,0);
     //screen.setLine(2, info);
@@ -149,6 +143,10 @@ void startType2(Station station){   //Talkshow
 }
 
 void handleStationChange(bool upOrDown){
+    tmrpcm.loop(0);
+    //tmrpcm.disable(); //Calling disable can sometimes stop play() from working correctly!
+    tmrpcm.stopPlayback();
+    
     if(upOrDown){
         if(selectedStationIndex >= NUMBER_OF_STATIONS - 1){
             selectedStationIndex = 0;
