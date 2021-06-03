@@ -12,6 +12,7 @@
                 "C:/Program Files (x86)/Arduino/libraries/LiquidCrystal_I2C",
                 "C:/Program Files (x86)/Arduino/libraries/**",
                 "C:\\Users\\sasha\\Documents\\Arduino\\libraries\\TMRpcm",
+                "C:\\Users\\sasha\\Documents\\Arduino\\libraries\\SdFat",
                 "C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src"
             ],
             "forcedInclude": [
