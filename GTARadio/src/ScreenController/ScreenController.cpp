@@ -18,16 +18,26 @@ void ScreenController::setup(){
     //this->lcd->scrollDisplayRight();
 }
 
+void ScreenController::setLineText(int lineNo, String text){
+    this->text[lineNo] = text;
+    update();
+}  
+
 void ScreenController::setLine(int lineNo, String text){
+    //TODO text can sometimes overflow on the lines ABOVE! Set the classes' text variable, but only print the x amount of characters per line!
+    //TODO check why this bug somehow fixed itself? Haven't seen it in a while...
+    //this->lcd->setCursor(0, lineNo);
+    //this->lcd->print(text);
+    this->text[lineNo] = text;
     this->lcd->setCursor(0, lineNo);
-    this->lcd->print(text);     //TODO text can sometimes overflow on the lines ABOVE! Set the classes' text variable, but only print the x amount of characters per line!
+    this->lcd->print(this->text[lineNo]);
 }  
 
 void ScreenController::update(){
     //this->lcd->scrollDisplayRight();
-    ///this->lcd->clear();
-    for(int i = 0; i < 2; i++){
-        this->lcd->setCursor(1,i);
+    this->lcd->clear();
+    for(int i = 0; i < this->y; i++){
+        this->lcd->setCursor(0,i);
         this->lcd->print(this->text[i]);
     }
 }
