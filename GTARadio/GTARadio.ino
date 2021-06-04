@@ -6,7 +6,7 @@
 #include <TMRpcm.h>
 #include <avr/pgmspace.h>   //For PROGMEM
 #define SD_ChipSelectPin 4
-#define NUMBER_OF_STATIONS 8
+#define NUMBER_OF_STATIONS 17
 #define LCD_INTRO_LINE 0
 #define LCD_CHANNEL_LINE 1
 #define LCD_SONG_LINE 2
@@ -44,22 +44,26 @@ struct StationPosition{
 const Station stations[NUMBER_OF_STATIONS] /*PROGMEM*/ = {
     {"01_CROCK", "Los Santos Rock Radio", 1, 38},
     {"02_POP", "Non Stop Pop", 1, 42},
-    //{"03_HH_N", "Radio Los Santos", 1, 31},
-    //{"04_PUNK", "Channel X", 1, 18},
+    {"03_HH_N", "Radio Los Santos", 1, 31},
+    {"04_PUNK", "Channel X", 1, 18},
     {"05_T1", "West Coast Talk Radio", 2, 4},
-    //{"06_CUNT", "Rebel Radio", 1, 17},
+    {"06_CUNT", "Rebel Radio", 1, 17},
     {"07_DAN1", "Soulwax FM", 0, 1},
     {"08_MEX", "East Los FM", 0, 1},
-    //{"09_HH_0", "West Coast Classics", 1, 29},
+    {"09_HH_0", "West Coast Classics", 1, 29},
     //NO No10
     {"11_T2", "Blaine County Radio", 2, 4},
-    //{"12_REGG", "Blue Ark FM", 1, 21},
+    {"12_REGG", "Blue Ark FM", 1, 21},
     {"13_JAZZ", "WorldWide FM", 0, 1},
     {"14_DAN2", "FlyLo FM", 0, 1},
-    //{"15_MOTWN", "Low Down", 1, 20},
-    //{"16_SILK", "Radio Mirror Park", 1, 34},
-    //{"17_FUNK", "Space", 1, 21},
-    //{"18_90RCK", "Vinewood Boulevard Radio", 1, 20},
+    {"15_MOTWN", "Low Down", 1, 20},
+    {"16_SILK", "Radio Mirror Park", 1, 34},
+    {"17_FUNK", "Space", 1, 21},
+    {"18_90RCK", "Vinewood Boulevard Radio", 1, 20},
+};
+
+StationPosition stationSaves[NUMBER_OF_STATIONS] = {
+    {-1, -1},{-1, -1},{-1, -1},{-1, -1},{-1, -1},{-1, -1},{-1, -1},{-1, -1}
 };
 
 int selectedStationIndex;
@@ -153,6 +157,8 @@ void startType2(Station station){   //Talkshow
     screen.setLine(2, name_with_extension);
 }
 
+int startTime = 0;
+
 void handleStationChange(bool upOrDown){
     delay(1000);    //This delay seems to fix some audio bugs with tmrpcm
     tmrpcm.loop(0);
@@ -174,6 +180,9 @@ void handleStationChange(bool upOrDown){
     }
 
     Station selectedStation = stations[selectedStationIndex];
+    StationPosition selectedStationPosition = stationSaves[selectedStationIndex];
+    selectedStationPosition.secs = millis() - startTime;
+    stationSaves[selectedStationIndex] = selectedStationPosition;
 
     switch(selectedStation.type){
         case 0:
