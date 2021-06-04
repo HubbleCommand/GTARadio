@@ -68,7 +68,6 @@ int lastPotState;
 
 void setup()
 {
-    //randomSeed(analogRead(A0));
     randomSeed(analogRead(A0) / analogRead(A1) + 1);
 
     screen.setup();
@@ -106,15 +105,6 @@ void playNews(){
 
 void startType0(Station station){   //Unsplit
     screen.setLine(1, (char*)station.name);
-
-    /*char* nameUnsplit;
-    nameUnsplit = (char*) malloc(9+1+9);
-    strcpy(nameUnsplit, station.source); 
-    strcat(nameUnsplit, src0);
-    tmrpcm.play(nameUnsplit, millis() / 1000);
-    tmrpcm.loop(1);
-    free(nameUnsplit);*/
-
     char nameUnsplit[20];
     strcpy(nameUnsplit, station.source); 
     strcat(nameUnsplit, src0);
@@ -123,23 +113,11 @@ void startType0(Station station){   //Unsplit
 }
 
 void startType1(Station station){   //Split
-    //screen.setLine(1, (char*)station.name);
     screen.setLine(1, station.name);
-
-    //int selSong = random((int)station.songCount);
-    //int selSong = random(station.songCount);
     int selSong = random(station.songCount - '0');
-    //int selSong = 0;
-
-    //char* namelov;
     char namelov[22];
-   // namelov = (char*) malloc(strlen(station.source)+1+14);
-//    namelov = (char*) malloc(9+1+14);
-    //namelov = (char*) malloc(9+1+17);
     strcpy(namelov, station.source);
     
-
-    //char* tString = new char[15];
     char tString[14];
     sprintf(tString, "/SONGS/%i.wav", selSong);
 
@@ -147,32 +125,10 @@ void startType1(Station station){   //Split
     screen.setLine(2, namelov);
 
     tmrpcm.play(namelov);
-
-    //free(namelov);
-    //free(tString);
-
-    //screen.setLine(2, "TODO");
 }
 
 void startType2(Station station){   //Talkshow
     screen.setLine(1, (char*)station.name);
-
-    //TODO check if int can even work, can SERIOUSLY bug!
-    //int selectedTalk = random(station.songCount);   //Both talkshow stations only have 4 monos, so good
-    /*int selectedTalk = random(4);   //Both talkshow stations only have 4 monos, so good
-
-    char* name_with_extension;
-    name_with_extension = (char*) malloc(strlen(station.source)+1+10);
-    strcpy(name_with_extension, station.source); 
-    
-
-    char* tmpString = new char[13];
-    sprintf(tmpString, "/MONO/%i.wav", selectedTalk);
-
-    strcat(name_with_extension, tmpString);
-
-    tmrpcm.play(name_with_extension, millis() / 1000);
-    screen.setLine(2, name_with_extension);
 
     //TODO printing info causes a crash
     //screen.setLine(2, name_with_extension);
@@ -181,10 +137,6 @@ void startType2(Station station){   //Talkshow
 	//tmrpcm.listInfo((char*)"RAIN.wav",info,0);
     //tmrpcm.listInfo(name_with_extension,info,0);
     //screen.setLine(2, info);
-
-    free(name_with_extension);
-    free(tmpString);*/
-    //free(info);
 
     int selectedTalk = random(4);   //Both talkshow stations only have 4 monos, so good
 
@@ -204,7 +156,6 @@ void startType2(Station station){   //Talkshow
 void handleStationChange(bool upOrDown){
     delay(1000);    //This delay seems to fix some audio bugs with tmrpcm
     tmrpcm.loop(0);
-    //tmrpcm.disable(); //Calling disable can sometimes stop play() from working correctly!
     tmrpcm.stopPlayback();
     
     if(upOrDown){
@@ -270,10 +221,8 @@ void loop()
         int volume = map(reading, 0, 1023, 0, 7);
         tmrpcm.setVolume(volume);
 
-        //char* tmpString = new char[9];  //Needs to be 9
         char tmpString[9];
         sprintf(tmpString, "VOL :  %i", volume);
         screen.setLine(LCD_VOL_LINE, tmpString);
-        //free(tmpString);
     }
 }
