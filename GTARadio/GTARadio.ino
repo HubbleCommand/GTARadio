@@ -50,16 +50,16 @@ const Station stations[NUMBER_OF_STATIONS] /*PROGMEM*/ = {
     {"06_CUNT", "Rebel Radio", 1, 17},
     {"07_DAN1", "Soulwax FM", 0, 1},
     {"08_MEX", "East Los FM", 0, 1},
-    {"09_HH_0", "West Coast Classics", 1, 29},
+    {"09_HH_O", "West Coast Classics", 1, 29},
     //NO No10
     {"11_T2", "Blaine County Radio", 2, 4},
     {"12_REGG", "Blue Ark FM", 1, 21},
     {"13_JAZZ", "WorldWide FM", 0, 1},
     {"14_DAN2", "FlyLo FM", 0, 1},
-    {"15_MOTWN", "Low Down", 1, 20},
+    {"15_MTWN", "Low Down", 1, 20},
     {"16_SILK", "Radio Mirror Park", 1, 34},
     {"17_FUNK", "Space", 1, 21},
-    {"18_90RCK", "Vinewood Boulevard Radio", 1, 20},
+    {"18_90RK", "Vinewood Boulevard Radio", 1, 20},
 };
 
 StationPosition stationSaves[NUMBER_OF_STATIONS] = {
