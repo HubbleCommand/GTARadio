@@ -32,6 +32,9 @@ dir | rename-item -NewName {$_.name -replace "MORNING","MORN"}
 dir | rename-item -NewName {$_.name -replace "TO_AD","TAD"}
 dir | rename-item -NewName {$_.name -replace "TO_NEWS","TNEW"}
 
+In the MONO, TIME, and TO directories, you will also need to run
+dir | rename-item -NewName {$_.name -replace "_0","_"}
+
 News and Ad files don't need any sort of name, so can be renamed just by incrementing number:
 
 $i = 0
