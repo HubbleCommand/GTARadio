@@ -1,6 +1,7 @@
 {
     "sketch": "GTARadio\\GTARadio.ino",
-    "port": "COM4",
-    "board": "arduino:avr:uno",
-    "programmer": "arduino:avrisp"
+    "port": "COM5",
+    "board": "arduino:avr:mega",
+    "programmer": "arduino:avrisp",
+    "configuration": "cpu=atmega2560"
 }
