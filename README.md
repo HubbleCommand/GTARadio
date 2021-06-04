@@ -23,17 +23,19 @@ The audio library used needs a very specific wav format, or it won't work as int
 ## Commands to bulk rename files
 After having reorganised the files & folders (see the appropriate section), all of the files & folders must also be renamed. This is because the file utility only supports files with names up to 8 characters long.
 
-The files that can be renamed by bulk command are those in GENERAL, MONO, TIME, and TO. INTRO and SONGS have to be done more manually. ID doesn't need any renaming.
+The files that can be renamed by bulk command are those in GENERAL, MONO, TIME, and TO. INTRO and SONGS have to be done manually. ID doesn't need any renaming.
 
-dir | rename-item -NewName {$_.name -replace "GENERAL","GEN"}
-dir | rename-item -NewName {$_.name -replace "MONO_SOLO","MONO"}
-dir | rename-item -NewName {$_.name -replace "EVENING","EVE"}
-dir | rename-item -NewName {$_.name -replace "MORNING","MORN"}
-dir | rename-item -NewName {$_.name -replace "TO_AD","TAD"}
-dir | rename-item -NewName {$_.name -replace "TO_NEWS","TNEW"}
+In the root directory of your audio files, execute the following commands
+
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "GENERAL","GEN"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "MONO_SOLO","MONO"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "EVENING","EVE"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "MORNING","MORN"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_AD","TAD"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_NEWS","TNEW"}
 
 In the MONO, TIME, and TO directories, you will also need to run
-dir | rename-item -NewName {$_.name -replace "_0","_"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "_0","_"}
 
 News and Ad files don't need any sort of name, so can be renamed just by incrementing number:
 
@@ -49,7 +51,7 @@ ForEach-Object {
 You can then remove the leading zeroes by running the following command twice
 dir | rename-item -NewName {$_.name -replace "^0",""}
 
-The hardest is renaming BOTH songs & intros to match! As I wanted meta data to be added as well (Song Name, Artist, Year), this has to all be done manually.
+The hardest is renaming BOTH songs & intros to match. As I wanted meta data to be added as well (Song Name, Artist, Year), this has to all be done manually.
 
 
 ## Commands used to organise stations & songs
