@@ -4,11 +4,14 @@ Arduino project to make a "radio" that plays the music from GTA radio stations. 
 # Useful notes
 File and directory names cannot be longer than 8 characters. A full path can be longer than 8 characters.
 
-someaudiofile.wav won't work
-someaudio/file.wav won't work
-some/audio/file.wav will work
+- someaudiofile.wav won't work
+- someaudio/file.wav won't work
+- some/audio/file.wav will work
 
 Adding the full folder as an album to Groove Music can really bug playback, and wrong files can be played!
+
+# TODOs
+- calculate used ram? https://forum.arduino.cc/t/measure-sram-memory-use/415346
 
 # Requesting audio
 As none of the audio belongs to me, I cannot make the converted audio files publicly available. However you can email me and I'll give you a link to the converted & organized files. Not all stations have been prepared, as some require vast amounts of manual conversion.
@@ -80,6 +83,7 @@ set PATH_TO_YOUR_FILES=DRIVE:\PATH\TO\YOUR\FILES
 News & Ads
 FOR /R "%PATH_TO_YOUR_FILES%\ADS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\ADS"
 FOR /R "%PATH_TO_YOUR_FILES%\NEWS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\NEWS"
+FOR /R "%PATH_TO_YOUR_FILES%\WEATHER" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\WEATHER" (specific to GTA IV)
 
 Secondly, we want to move all the other non-song files: id and mono
 FOR /R "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK" %i IN (\mono_*.wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK\MONO"
@@ -98,26 +102,48 @@ set path=PATH_TO_YOUR_FILES
 set stationName=01_CLASS_ROCK
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=02_POP
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=03_HIPHOP_NEW
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=04_PUNK
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=05_TALK_01
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=06_COUNTRY
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=09_HIPHOP_OLD
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=11_TALK_02
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=12_REGGAE
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=15_MOTOWN
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=16_SILVERLAKE
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=17_FUNK
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=18_90S_ROCK
+
+For GTA IV
+
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
+FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\SOLO_*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\MONO"
+FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\id_*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\ID"
+
+set stationName=10_HARDCORE
+set stationName=11_INDEPENDENCE (is this even a station)
+set stationName=12_JAZZ_NATION
+set stationName=13_K109
+set stationName=14_LAZLOW
+set stationName=15_LIBERTY_ROCK
+set stationName=16_MEDITATION
+set stationName=17_NY_CLASSICS
+set stationName=18_PLR
+set stationName=19_RAMJAM_FM
+set stationName=1_AFRO_BEAT
+set stationName=20_SAN_JUAN_SOUNDS
+set stationName=21_THE_VIBE
+set stationName=22_VCFM
+set stationName=23_VLADIVOSTOK
+set stationName=24_WKTT
+set stationName=2_BABYLON
+set stationName=3_BEAT
+set stationName=4_BOBBY_KONDERS
+set stationName=5_CLASSICAL_AMBIENT
+set stationName=6_DANCE_MIX
+set stationName=7_DANCE_ROCK
+set stationName=8_EXTRA_TRACKS
+set stationName=9_FUSION
+
+FOR EXTRA TRACKS
+FOR /R "%PATH_TO_YOUR_FILES%\8_EXTRA_TRACKS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\8_EXTRA_TRACKS"
