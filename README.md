@@ -100,7 +100,6 @@ FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%P
 Bulk command
 set path=PATH_TO_YOUR_FILES
 set stationName=01_CLASS_ROCK
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 set stationName=02_POP
 set stationName=03_HIPHOP_NEW
 set stationName=04_PUNK
