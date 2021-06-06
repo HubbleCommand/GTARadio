@@ -155,7 +155,7 @@ void loop()
         stationsCLASS[selectedStationIndex]->play();
     }
 
-    if(butNextSong.stateChanged()){
+    if(butNextSong.stateChanged()){     //TODO check if increasing button debounce time fixed the total crash if next / prev song is pushed too soon
         stationsCLASS[selectedStationIndex]->nextSong();
     }
 
