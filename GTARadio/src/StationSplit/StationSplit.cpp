@@ -10,21 +10,7 @@ void StationSplit::play() {
     int selSong = random(songCount);
 
     this->songID = selSong;
-
-    char namelov[22];
-    strcpy(namelov, this->source);
-    
-    char tString[14];
-    sprintf(tString, "/SONGS/%i.wav", selSong);
-
-    strcat(namelov, tString);
-    //this->screen->setLine(2, namelov);
-
-    char songname[30];
-    this->audio->listInfo(namelov, songname, 0);
-    this->screen->setLine(2, songname);
-
-    this->audio->play(namelov);
+    this->play(this->songID);
 }
 
 void StationSplit::cont() {
@@ -42,17 +28,7 @@ void StationSplit::cont() {
     }
 
     this->songID = selSong;
-
-    char namelov[22];
-    strcpy(namelov, this->source);
-    char tString[14];
-    sprintf(tString, "/SONGS/%i.wav", selSong);
-    strcat(namelov, tString);
-
-    char songname[30];
-    this->audio->listInfo(namelov, songname, 0);
-    this->screen->setLine(2, songname);
-    this->audio->play(namelov);
+    this->play(this->songID);
 }
 
 void StationSplit::stop() {
@@ -62,32 +38,48 @@ void StationSplit::stop() {
 }
 
 void StationSplit::nextSong() {
-    delay(1000);    //This delay seems to fix some audio bugs with tmrpcm
-    this->audio->stopPlayback();
+    this->stop();
+    
+    char songSRCFolder[15];
+    strcpy(songSRCFolder, this->source);
+    strcat(songSRCFolder, "/SONGS");
+    int songCount = countFiles(songSRCFolder);
 
-    this->songID++;
+    if(this->songID < songCount - 1){
+        this->songID++;
+    } else {
+        this->songID = 0;
+    }
 
     this->play(this->songID);
 }
 
 void StationSplit::prevSong() {
-    delay(1000);    //This delay seems to fix some audio bugs with tmrpcm
-    this->audio->stopPlayback();
+    this->stop();
 
-    this->songID--;
+    char songSRCFolder[15];
+    strcpy(songSRCFolder, this->source);
+    strcat(songSRCFolder, "/SONGS");
+    int songCount = countFiles(songSRCFolder);
+
+    if(!(this->songID <= 0)){
+        this->songID--;
+    } else {
+        this->songID = songCount - 1;
+    }
 
     this->play(this->songID);
 }
 
 void StationSplit::play(int songID) {
-    char namelov[22];
-    strcpy(namelov, this->source);
+    char trackSRC[22];
+    strcpy(trackSRC, this->source);
     char tString[14];
     sprintf(tString, "/SONGS/%i.wav", songID);
-    strcat(namelov, tString);
+    strcat(trackSRC, tString);
 
     char songname[30];
-    this->audio->listInfo(namelov, songname, 0);
+    this->audio->listInfo(trackSRC, songname, 0);
     this->screen->setLine(2, songname);
-    this->audio->play(namelov);
+    this->audio->play(trackSRC);
 }
