@@ -2,15 +2,10 @@
 
 void StationUnsplit::play() {
     this->screen->setLine(1, this->name);
-    //this->audio->play((char*)"13_JAZZ/SRC.wav");
     char trackSRC[18];
     strcpy(trackSRC, this->source);
     strcat(trackSRC, "/SRC.wav");
-    
-    //char tString[14];
-    //sprintf(tString, "/SONGS/%i.wav", selSong);
 
-    //this->audio->play(trackSRC, randomStart);
     if(this->seconds > 0){
         this->audio->play(trackSRC, millis() - this->seconds);   //TODO check if need to handle seekpoint being longer than the track duration
     } else {
@@ -19,10 +14,8 @@ void StationUnsplit::play() {
 
         this->audio->play(trackSRC, randomStart);
     }
-    
+    this->screen->setLine(2, "");
     this->audio->loop(1);
-    
-    //return source + "/SRC.wav";
 }
 
 void StationUnsplit::cont() {
@@ -37,9 +30,9 @@ void StationUnsplit::stop() {
 }
 
 void StationUnsplit::nextSong() {
-    
+    //NOTHING TO DO
 }
 
 void StationUnsplit::prevSong() {
-
+    //NOTHING TO DO
 }
