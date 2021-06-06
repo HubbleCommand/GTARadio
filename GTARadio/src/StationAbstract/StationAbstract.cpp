@@ -1,10 +1,7 @@
 #include <SD.h>
 #include "StationAbstract.h"
 
-StationAbstract::StationAbstract() {
-    
-}
-
+StationAbstract::StationAbstract() {}
 StationAbstract::StationAbstract(char* name, char* source, TMRpcm* audio, ScreenController* screen) {
     this->name = name;
     this->source = source;
@@ -37,17 +34,13 @@ int StationAbstract::countFiles(char* source){
 
 //MAKE SURE TO DEALLOCATE THE SPACE USED BY PERSISTENT WHEN USING THIS FUNCTION!
 char* StationAbstract::getTrackInfo(char* source, int infoID){  //0 - Track Name, 1 - Artist name
-    //char info[32];
-	//tmrpcm.listInfo((char*)"RAIN.wav",info,0);
-    //tmrpcm.listInfo(name_with_extension,info,0);
-    //screen.setLine(2, info);
-
     char* persistent = malloc(50);
     this->audio->listInfo(source, persistent, infoID);
     return persistent;
 }
 
 float StationAbstract::getTrackDuration(char* source){
+    //Taken from https://github.com/TMRh20/TMRpcm/issues/141
     File sourceFile = SD.open(source);
 
     if(sourceFile){
