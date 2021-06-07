@@ -97,7 +97,7 @@ void setup()
         screen.setLine(0, "GTA Radio");
     }
 
-    tmrpcm.speakerPin = 11;
+    tmrpcm.speakerPin = TMRPCM_SPEAKER_PIN;
     tmrpcm.volume(0.5);
     //tmrpcm.quality(1);
     selectedStationIndex = random(NUMBER_OF_STATIONS);   //DON't -1 ! the max is EXCLUSIVE
