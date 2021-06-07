@@ -13,7 +13,7 @@ public:
     virtual void nextSong() = 0;    //Play the next song
     virtual void prevSong() = 0;    //Play the previous song
     virtual void play() = 0;    //Will start playing station at a random time, used when first playing the station
-    virtual void cont() = 0;    //Continue playing the station
+    virtual void cont() = 0;    //Continue playing the station (i.e. when a song is over, play another one)
     virtual void stop() = 0;    //Stop playing the radio station
     //virtual void play(int startTime);   //Utility functions essentially...
     //virtual void play(char* song);
