@@ -10,6 +10,9 @@ public:
     void stop();
 private:
     void play(int trackID);
+    void playTrackIntro(int trackID);
     int countSongs();
     char songCount = 0;
+
+    bool introducingSong;   //If the station was prviously introducing a song
 };

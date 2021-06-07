@@ -23,19 +23,29 @@ void StationSplit::cont() {
     int songCount = countFiles(songSRC);
     this->songCount = songCount;
     int selSong = random(this->songCount);*/
-    
-    int songCount = countSongs();
-    int selSong = random(songCount);
 
-    if(selSong == this->songID){
-        selSong++;
-        if(selSong > this->songCount){
-            selSong = 0;
+    if(introducingSong){
+        introducingSong = false;
+        this->play(this->songID);
+    } else {
+        int songCount = countSongs();
+        int selSong = random(songCount);
+
+        if(selSong == this->songID){
+            selSong++;
+            if(selSong > this->songCount){
+                selSong = 0;
+            }
+        }
+
+        this->songID = selSong; //We ONLY NEED TO SET songID HERE, not in the if, as it stays constant there
+
+        //Introduce every song by default, in future only do every once in a while...
+        if(true){
+            introducingSong = true;
+            this->playTrackIntro(this->songID);
         }
     }
-
-    this->songID = selSong;
-    this->play(this->songID);
 }
 
 void StationSplit::stop() {
@@ -94,6 +104,19 @@ void StationSplit::play(int trackID) {
     char songname[30];
     this->audio->listInfo(trackSRC, songname, 0);
     this->screen->setLine(2, songname);
+    this->audio->play(trackSRC);
+}
+
+void StationSplit::playTrackIntro(int trackID) {
+    //NOTE
+    //This won't always play a song intro, especially if no song intros exist!
+    int introToPlay = random(1,2);
+
+    char trackSRC[22];
+    strcpy(trackSRC, this->source);
+    char tString[16];
+    sprintf(tString, "/INTRO/%i_%i.wav", trackID, introToPlay);
+    strcat(trackSRC, tString);
     this->audio->play(trackSRC);
 }
 
