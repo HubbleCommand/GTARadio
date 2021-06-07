@@ -110,7 +110,7 @@ void StationSplit::play(int trackID) {
 void StationSplit::playTrackIntro(int trackID) {
     //NOTE
     //This won't always play a song intro, especially if no song intros exist!
-    int introToPlay = random(1,2);
+    int introToPlay = random(1,2 + 1);  //Max bounds is exclusive, so add 1
 
     char trackSRC[22];
     strcpy(trackSRC, this->source);
