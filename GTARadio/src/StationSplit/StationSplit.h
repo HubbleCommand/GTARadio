@@ -9,6 +9,7 @@ public:
     void cont();
     void stop();
 private:
-    void play(int songID);
-
+    void play(int trackID);
+    int countSongs();
+    char songCount = 0;
 };
