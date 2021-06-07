@@ -38,12 +38,13 @@ void StationSplit::cont() {
             }
         }
 
-        this->songID = selSong; //We ONLY NEED TO SET songID HERE, not in the if, as it stays constant there
+        this->songID = selSong;
 
-        //Introduce every song by default, in future only do every once in a while...
-        if(true){
+        if(random(10 + 1) >= 5){
             introducingSong = true;
             this->playTrackIntro(this->songID);
+        } else {
+            this->play(this->songID);
         }
     }
 }
