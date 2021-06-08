@@ -158,7 +158,7 @@ FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\id_*.wav) DO MOVE "%i" "%PAT
 
 GTA IV Stations
 ```
-set stationName=A_AFRO_BEAT
+set stationName=A_AFRO
 set stationName=B_BBYLN
 set stationName=C_BEAT
 set stationName=D_BK
