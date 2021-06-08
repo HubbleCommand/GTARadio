@@ -35,15 +35,15 @@ root
 │   └───MONO
 │
 └───split station
-│   └───HOST
-│   └───ID
-│   └───INTRO
-│   └───SONGS
-│   └───TIME
-│   └───TO
-│       └───AD
-│       └───NEWS
-│       └───WEATH (optional, for GTA IV stations)
+    └───HOST
+    └───ID
+    └───INTRO
+    └───SONGS
+    └───TIME
+    └───TO
+        └───AD
+        └───NEWS
+        └───WEATH (optional, for GTA IV stations)
 ```
 ## Commands to bulk rename files
 After having reorganised the files & folders (see the appropriate section), all of the files & folders must also be renamed. This is because the file utility only supports files with names up to 8 characters long.
