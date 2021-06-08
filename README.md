@@ -51,7 +51,7 @@ After having reorganised the files & folders (see the appropriate section), all 
 The files that can be renamed by bulk command are those in GENERAL, MONO, TIME, and TO. INTRO and SONGS have to be done manually. ID doesn't need any renaming.
 
 In the root directory of your audio files, execute the following commands
-
+```
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "GENERAL","GEN"}
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "MONO_SOLO","MONO"}
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "EVENING","EVE"}
@@ -59,12 +59,15 @@ Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "MORNING","MORN"
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_AD","TAD"}
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_NEWS","TNEW"}
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_WEATHER","TWET"}
-
+```
 In the MONO, TIME, and TO directories, you will also need to run
+```
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "_0","_"}
+```
 
 News and Ad files don't need any sort of name, so can be renamed just by incrementing number:
 
+```
 $i = 0
 Get-ChildItem -Path D:\(ADS or NEWS) -Filter *.wav |
 ForEach-Object {
@@ -73,9 +76,12 @@ ForEach-Object {
    $i++
    Rename-Item -Path $_.FullName -NewName $newName
 }
+```
 
 You can then remove the leading zeroes by running the following command twice
+```
 dir | rename-item -NewName {$_.name -replace "^0",""}
+```
 
 The hardest is renaming BOTH songs & intros to match. As I wanted meta data to be added as well (Song Name, Artist, Year), this has to all be done manually.
 
@@ -102,27 +108,32 @@ There are a few things we want to do:
 - Move files out of their subfolders
 
 First, we want to move all the non-song files into their seperate folders. For some of them, this is already done: general, intro, time, to
-
+```
 set PATH_TO_YOUR_FILES=DRIVE:\PATH\TO\YOUR\FILES
+```
 
 News & Ads
+```
 FOR /R "%PATH_TO_YOUR_FILES%\ADS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\ADS"
 FOR /R "%PATH_TO_YOUR_FILES%\NEWS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\NEWS"
 FOR /R "%PATH_TO_YOUR_FILES%\WEATHER" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\WEATHER" (specific to GTA IV)
+```
 
 Secondly, we want to move all the other non-song files: id and mono
-FOR /R "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK" %i IN (\mono_*.wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK\MONO"
-FOR /R "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK" %i IN (\id_*.wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\01_CLASS_ROCK\ID"
-
+```
 set stationName=18_90S_ROCK
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\mono_*.wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\%stationName%\MONO"
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\id_*.wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\%stationName%\ID"
+```
 
 In the SONGS folder, execute the following command:
+```
 set stationName=01_CLASS_ROCK
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
+```
 
-Bulk command
+GTA V Stations
+```
 set path=PATH_TO_YOUR_FILES
 set stationName=01_CROCK
 set stationName=02_POP
@@ -137,13 +148,16 @@ set stationName=15_MTWN
 set stationName=16_SILK
 set stationName=17_FUNK
 set stationName=18_90RK
-
+```
 For GTA IV
-
+```
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\SOLO_*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\MONO"
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\id_*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\ID"
+```
 
+GTA IV Stations
+```
 set stationName=A_AFRO_BEAT
 set stationName=B_BBYLN
 set stationName=C_BEAT
@@ -168,6 +182,8 @@ set stationName=S_VIBE
 set stationName=T_VCFM
 set stationName=U_VLAD
 set stationName=V_WKTT
-
+```
 FOR EXTRA TRACKS
+```
 FOR /R "%PATH_TO_YOUR_FILES%\8_EXTRA_TRACKS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\8_EXTRA_TRACKS"
+```
