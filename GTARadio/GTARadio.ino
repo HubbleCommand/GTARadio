@@ -38,6 +38,7 @@ int selectedStationIndex;
 int lastPotState;
 int startTime = 0;
 
+//GTA V Stations
 StationSplit CLASSIC_ROCK = StationSplit((char*)"Los Santos Rock Radio", (char*)"01_CROCK", &tmrpcm, &screen);
 StationSplit NON_STOP_POP = StationSplit((char*)"Non Stop Pop", (char*)"02_POP", &tmrpcm, &screen);
 StationSplit RADIO_LOS_SANTOS = StationSplit((char*)"Radio Los Santos", (char*)"03_HH_N", &tmrpcm, &screen);
@@ -56,7 +57,7 @@ StationSplit MIRROR_PARK = StationSplit((char*)"Radio Mirror Park", (char*)"16_S
 StationSplit SPACE = StationSplit((char*)"Space", (char*)"17_FUNK", &tmrpcm, &screen);
 StationSplit VB_RADIO = StationSplit((char*)"Vinewood Boulevard Radio", (char*)"18_90RK", &tmrpcm, &screen);
 
-//GTA IV stations
+//GTA IV Stations
 StationSplit IF_99 = StationSplit((char*)"International Funk 99", (char*)"A_AFRO", &tmrpcm, &screen);
 StationSplit TUFF_GONG = StationSplit((char*)"Tuff Gong Radio", (char*)"B_BBYLN", &tmrpcm, &screen);
 StationUnsplit THE_BEAT = StationUnsplit((char*)"The Beat 102.7", (char*)"C_BEAT", &tmrpcm, &screen);
@@ -67,7 +68,7 @@ StationSplit RADIO_BROCKER = StationSplit((char*)"Radio Brocker", (char*)"G_DANR
 //WTF 8? Just extra songs?
 StationSplit FUSION_FM = StationSplit((char*)"Fusion FM", (char*)"H_FUS", &tmrpcm, &screen);    //Not working?
 StationSplit LC_HARD_CORE = StationSplit((char*)"Liberty City Hard Core", (char*)"I_HARD", &tmrpcm, &screen);
-//WTF 11? No songs? !!! CHANNEL 11 WAS MEANT FOR A USER-MADE RADIO STATION ON PC VERSIONS OF GTA IV !!!
+//!!! CHANNEL 11 WAS MEANT FOR A USER-MADE RADIO STATION ON PC VERSIONS OF GTA IV !!!
 StationSplit JAZZ_NATION = StationSplit((char*)"Jazz Nation Radio 108.5", (char*)"J_JAZZ", &tmrpcm, &screen);
 StationSplit K109 = StationSplit((char*)"K109 The Studio", (char*)"K_K109", &tmrpcm, &screen);
 StationTalkshow INTEGRITY = StationTalkshow((char*)"Integrity 2.0", (char*)"L_LZLW", &tmrpcm, &screen);
@@ -122,42 +123,24 @@ void setup()
     stationsCLASS[17] = &IF_99;
     stationsCLASS[18] = &TUFF_GONG;
     stationsCLASS[19] = &THE_BEAT;
-
-    //stationsCLASS[19] = &MASSIVE_B;
     stationsCLASS[20] = &MASSIVE_B;
-
     stationsCLASS[21] = &JOURNEY;
-
-    //stationsCLASS[20] = &ELECTRO_CHOC;
     stationsCLASS[22] = &ELECTRO_CHOC;
-
     stationsCLASS[23] = &RADIO_BROCKER;
     stationsCLASS[24] = &FUSION_FM;
     stationsCLASS[25] = &LC_HARD_CORE;
     stationsCLASS[26] = &JAZZ_NATION;
     stationsCLASS[27] = &K109;
-
-    //stationsCLASS[21] = &INTEGRITY;
     stationsCLASS[28] = &INTEGRITY;
-
     stationsCLASS[29] = &LIBERTY_ROCK;
     stationsCLASS[30] = &ACTUALIZATION;
-
-    //stationsCLASS[22] = &THE_CLASSICS;
     stationsCLASS[31] = &THE_CLASSICS;
-
-    //stationsCLASS[23] = &PLR;
     stationsCLASS[32] = &PLR;
-
-    //stationsCLASS[24] = &RAMJAM;
     stationsCLASS[33] = &RAMJAM;
-
     stationsCLASS[34] = &SAN_JUAN_SOUNDS;
     stationsCLASS[35] = &THE_VIBE;
     stationsCLASS[36] = &VCFM;
     stationsCLASS[37] = &VLADIVOSTOK;
-
-    //stationsCLASS[25] = &WKTT;
     stationsCLASS[38] = &WKTT;
 
     //Not updating the screen pointer AFTER THE SCREEN HAS BEEN SETUP causes issues
