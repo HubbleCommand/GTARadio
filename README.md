@@ -142,31 +142,30 @@ FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%P
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\SOLO_*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\MONO"
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\id_*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\ID"
 
-set stationName=1_AFRO_BEAT
-set stationName=2_BBYLN
-set stationName=3_BEAT
-set stationName=4_BK
-set stationName=5_CLASS
-set stationName=6_DANM
-set stationName=7_DANR
+set stationName=A_AFRO_BEAT
+set stationName=B_BBYLN
+set stationName=C_BEAT
+set stationName=D_BK
+set stationName=E_CLASS
+set stationName=F_DANM
+set stationName=G_DANR
 set stationName=8_EXTRA_TRACKS
-set stationName=9_FUS
-set stationName=10_HARD
+set stationName=H_FUS
+set stationName=I_HARD
 set stationName=11_INDEPENDENCE (is this even a station)
-set stationName=12_JAZZ
-set stationName=13_K109
-set stationName=14_LZLW
-set stationName=15_LIBR
-set stationName=16_MED
-set stationName=17_NYCL
-set stationName=18_PLR
-set stationName=19_RJFM
-set stationName=20_SJS
-set stationName=21_VIBE
-set stationName=22_VCFM
-set stationName=23_VLAD
-set stationName=24_WKTT
-
+set stationName=J_JAZZ
+set stationName=K_K109
+set stationName=L_LZLW
+set stationName=M_LIBR
+set stationName=N_MED
+set stationName=O_NYCL
+set stationName=P_PLR
+set stationName=Q_RJFM
+set stationName=R_SJS
+set stationName=S_VIBE
+set stationName=T_VCFM
+set stationName=U_VLAD
+set stationName=V_WKTT
 
 FOR EXTRA TRACKS
 FOR /R "%PATH_TO_YOUR_FILES%\8_EXTRA_TRACKS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\8_EXTRA_TRACKS"
