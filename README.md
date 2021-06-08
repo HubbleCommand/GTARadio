@@ -23,6 +23,26 @@ The audio library used needs a very specific wav format, or it won't work as int
 
 - Not really helpful but in case : https://github.com/TMRh20/TMRpcm/issues/125
 
+## Desired directory structure
+https://stackoverflow.com/questions/19699059/representing-directory-file-structure-in-markdown-syntax
+```
+project
+│   README.md
+│   file001.txt    
+│
+└───folder1
+│   │   file011.txt
+│   │   file012.txt
+│   │
+│   └───subfolder1
+│       │   file111.txt
+│       │   file112.txt
+│       │   ...
+│   
+└───folder2
+    │   file021.txt
+    │   file022.txt
+```
 ## Commands to bulk rename files
 After having reorganised the files & folders (see the appropriate section), all of the files & folders must also be renamed. This is because the file utility only supports files with names up to 8 characters long.
 
@@ -58,6 +78,8 @@ The hardest is renaming BOTH songs & intros to match. As I wanted meta data to b
 
 
 ## Commands used to organise stations & songs
+Both GENERAL and MONO are the same : the station host just talking.
+They have hence both been put into HOST
 All songs were ripped with OpenIV
 
 If you have ripped the songs as well, you will need to organise them to be usable in this program with the commands below, IN THE ORDER THEY APPEAR. Be warned that you will also need about 17GB for storage.
@@ -99,19 +121,19 @@ FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%P
 
 Bulk command
 set path=PATH_TO_YOUR_FILES
-set stationName=01_CLASS_ROCK
+set stationName=01_CROCK
 set stationName=02_POP
-set stationName=03_HIPHOP_NEW
+set stationName=03_HH_N
 set stationName=04_PUNK
-set stationName=05_TALK_01
-set stationName=06_COUNTRY
-set stationName=09_HIPHOP_OLD
-set stationName=11_TALK_02
-set stationName=12_REGGAE
-set stationName=15_MOTOWN
-set stationName=16_SILVERLAKE
+set stationName=05_T1
+set stationName=06_CUNT
+set stationName=09_HH_O
+set stationName=11_T2
+set stationName=12_REGG
+set stationName=15_MTWN
+set stationName=16_SILK
 set stationName=17_FUNK
-set stationName=18_90S_ROCK
+set stationName=18_90RK
 
 For GTA IV
 
