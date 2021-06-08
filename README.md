@@ -56,6 +56,7 @@ Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "EVENING","EVE"}
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "MORNING","MORN"}
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_AD","TAD"}
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_NEWS","TNEW"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_WEATHER","TWET"}
 
 In the MONO, TIME, and TO directories, you will also need to run
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "_0","_"}
@@ -141,30 +142,31 @@ FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%P
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\SOLO_*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\MONO"
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\id_*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\ID"
 
-set stationName=10_HARDCORE
-set stationName=11_INDEPENDENCE (is this even a station)
-set stationName=12_JAZZ_NATION
-set stationName=13_K109
-set stationName=14_LAZLOW
-set stationName=15_LIBERTY_ROCK
-set stationName=16_MEDITATION
-set stationName=17_NY_CLASSICS
-set stationName=18_PLR
-set stationName=19_RAMJAM_FM
 set stationName=1_AFRO_BEAT
-set stationName=20_SAN_JUAN_SOUNDS
-set stationName=21_THE_VIBE
-set stationName=22_VCFM
-set stationName=23_VLADIVOSTOK
-set stationName=24_WKTT
-set stationName=2_BABYLON
+set stationName=2_BBYLN
 set stationName=3_BEAT
-set stationName=4_BOBBY_KONDERS
-set stationName=5_CLASSICAL_AMBIENT
-set stationName=6_DANCE_MIX
-set stationName=7_DANCE_ROCK
+set stationName=4_BK
+set stationName=5_CLASS
+set stationName=6_DANM
+set stationName=7_DANR
 set stationName=8_EXTRA_TRACKS
-set stationName=9_FUSION
+set stationName=9_FUS
+set stationName=10_HARD
+set stationName=11_INDEPENDENCE (is this even a station)
+set stationName=12_JAZZ
+set stationName=13_K109
+set stationName=14_LZLW
+set stationName=15_LIBR
+set stationName=16_MED
+set stationName=17_NYCL
+set stationName=18_PLR
+set stationName=19_RJFM
+set stationName=20_SJS
+set stationName=21_VIBE
+set stationName=22_VCFM
+set stationName=23_VLAD
+set stationName=24_WKTT
+
 
 FOR EXTRA TRACKS
 FOR /R "%PATH_TO_YOUR_FILES%\8_EXTRA_TRACKS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\8_EXTRA_TRACKS"
