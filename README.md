@@ -23,25 +23,27 @@ The audio library used needs a very specific wav format, or it won't work as int
 
 - Not really helpful but in case : https://github.com/TMRh20/TMRpcm/issues/125
 
-## Desired directory structure
+## Desired audio directory structure
 https://stackoverflow.com/questions/19699059/representing-directory-file-structure-in-markdown-syntax
 ```
-project
-│   README.md
-│   file001.txt    
+root
+└───unsplit station
+│   │   SRC.wav
+│ 
+└───talkshow station
+│   └───ID
+│   └───MONO
 │
-└───folder1
-│   │   file011.txt
-│   │   file012.txt
-│   │
-│   └───subfolder1
-│       │   file111.txt
-│       │   file112.txt
-│       │   ...
-│   
-└───folder2
-    │   file021.txt
-    │   file022.txt
+└───split station
+│   └───HOST
+│   └───ID
+│   └───INTRO
+│   └───SONGS
+│   └───TIME
+│   └───TO
+│       └───AD
+│       └───NEWS
+│       └───WEATH (optional, for GTA IV stations)
 ```
 ## Commands to bulk rename files
 After having reorganised the files & folders (see the appropriate section), all of the files & folders must also be renamed. This is because the file utility only supports files with names up to 8 characters long.
