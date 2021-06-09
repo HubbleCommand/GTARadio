@@ -10,9 +10,6 @@ File and directory names cannot be longer than 8 characters. A full path can be 
 
 Adding the full folder as an album to Groove Music can really bug playback, and wrong files can be played!
 
-# TODOs
-- calculate used ram? https://forum.arduino.cc/t/measure-sram-memory-use/415346
-
 # Requesting audio
 As none of the audio belongs to me, I cannot make the converted audio files publicly available. However you can email me and I'll give you a link to the converted & organized files. Not all stations have been prepared, as some require vast amounts of manual conversion.
 
