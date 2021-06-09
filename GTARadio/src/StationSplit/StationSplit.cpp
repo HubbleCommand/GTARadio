@@ -29,25 +29,52 @@ void StationSplit::cont() {
     this->songCount = songCount;
     int selSong = random(this->songCount);*/
 
-    if(introducingSong){
+    if(this->introducingSong){
         introducingSong = false;
-        this->play(this->songID);
-    } else {
-        int songCount = countSongs();
-        int selSong = random(songCount);
-
-        if(selSong == this->songID){
-            selSong++;
-            if(selSong > this->songCount){
-                selSong = 0;
+        this->playSong(this->songID);
+    } else if(this->intermission) {   //If we are in an intermission, then play it
+        if(intermissionCounter <= 0){    //make sure that we end the itermission the next loop
+            this->intermission = false;
+            playStationID();
+        } else {
+            this->intermissionCounter--;
+            if(this->news){
+                playNews();
+            } else {
+                playAdvert();
             }
         }
+    } else {
+        //Start intermission after a random number of songs have been played
+        if(random(10) > 6){
+            this->intermission = true;
+            
+            if(random(5 + 1) > 2){  //Play an ad
+                this->news = false;
+                this->intermissionCounter = random(3, 5 + 1); //Set a random number of intermission things to play
+                playIntermissionIntro(true);
+            } else {                //Play a news reel
+                this->news = true;
+                this->intermissionCounter = random(1, 3 + 1); //Set a random number of intermission things to play
+                playIntermissionIntro(false);
+            }
+        } else {
+            int songCount = countSongs();
+            int selSong = random(songCount);
 
-        this->songID = selSong;
+            if(selSong == this->songID){
+                selSong++;
+                if(selSong > this->songCount){
+                    selSong = 0;
+                }
+            }
 
-        //ALWAYS play song intro, if it exists
-        introducingSong = true;
-        this->playTrackIntro(this->songID);
+            this->songID = selSong;
+
+            //ALWAYS play song intro, if it exists
+            this->introducingSong = true;
+            this->playTrackIntro(this->songID);
+        }
     }
 }
 
@@ -74,7 +101,7 @@ void StationSplit::nextSong() {
         this->songID = 0;
     }
 
-    this->play(this->songID);
+    this->playSong(this->songID);
 }
 
 void StationSplit::prevSong() {
@@ -94,10 +121,10 @@ void StationSplit::prevSong() {
         this->songID = this->songCount - 1;
     }
 
-    this->play(this->songID);
+    this->playSong(this->songID);
 }
 
-void StationSplit::play(int trackID) {
+void StationSplit::playSong(int trackID) {
     char trackSRC[22];
     strcpy(trackSRC, this->source);
     char tString[14];
@@ -122,6 +149,45 @@ bool StationSplit::findSongIntro(int number, int trackID){
     } else {
         return false;
     }
+}
+
+void StationSplit::playIntermissionIntro(bool advert) {
+    if(advert){ //Play To Commercials bit
+        char adIntroSRC[16 + 12];
+        strcpy(adIntroSRC, this->source);
+        strcat(adIntroSRC, "/TO/AD");
+        int adIntroCount = countFiles(adIntroSRC);
+
+        int introToPlay = random(1, adIntroCount + 1);
+        char tString[12];
+        sprintf(tString, "/TAD_%i.wav", introToPlay);
+        strcat(adIntroSRC, tString);
+        this->audio->play(adIntroSRC);
+    } else {    //Play To News bit
+        char newsIntroSRC[16 + 13];
+        strcpy(newsIntroSRC, this->source);
+        strcat(newsIntroSRC, "/TO/NEWS");
+        int newsIntroCount = countFiles(newsIntroSRC);
+
+        int introToPlay = random(1, newsIntroCount + 1);
+        char tString[13];
+        sprintf(tString, "/TNEW_%i.wav", introToPlay);
+        strcat(newsIntroSRC, tString);
+        this->audio->play(newsIntroSRC);
+    }
+}
+
+void StationSplit::playStationID() {
+    char idSRC[16 + 12];
+        strcpy(idSRC, this->source);
+        strcat(idSRC, "/ID");
+        int idCount = countFiles(idSRC);
+
+        int idToPlay = random(1, idCount + 1);
+        char tString[12];
+        sprintf(tString, "/ID_%i.wav", idToPlay);
+        strcat(idSRC, tString);
+        this->audio->play(idSRC);
 }
 
 void StationSplit::playTrackIntro(int trackID) {

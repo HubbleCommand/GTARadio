@@ -9,7 +9,7 @@ public:
     void cont();
     void stop();
 private:
-    void play(int trackID);
+    void playSong(int trackID);
     void playTrackIntro(int trackID);
     int countSongs();
     char songCount = 0;
@@ -20,4 +20,13 @@ private:
     //Song intro stuff
     bool introducingSong = false;   //If the station was prviously introducing a song
     bool findSongIntro(int number, int trackID);
+
+    //Intermission (advert / news / maybe GTA IV weather) stuff
+    void playIntermissionIntro(bool advert);
+    void playStationID();   //Played at the end of the intermission
+
+    int songCountDown = 0;
+    int intermissionCounter; //Used for counting down the ads / news reels to play
+    bool intermission = false;  //if the station is actively playing news or ads
+    bool news;     //if the intermission being played is news (if false, then is ads)
 };
