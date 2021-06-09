@@ -18,10 +18,6 @@ void StationUnsplit::play() {
     this->audio->loop(1);
 }
 
-void StationUnsplit::cont() {
-    //THIS SHOULD NEVER BE REACHED FOR THIS CLASS!!!    
-}
-
 void StationUnsplit::stop() {
     delay(1000);    //This delay seems to fix some audio bugs with tmrpcm
     this->seconds = millis();

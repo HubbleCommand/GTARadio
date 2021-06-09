@@ -1,9 +1,7 @@
 #include "StationTalkshow.h"
 
-//TODO play() and cont() can actually be merged...
-
 void StationTalkshow::play() {
-    this->screen->setLine(1, this->name);
+    /*this->screen->setLine(1, this->name);
 
     this->intermission = true;
     this->situationalCounter = random(3,6);
@@ -16,10 +14,8 @@ void StationTalkshow::play() {
     int selSong = random(songCount);
 
     this->songID = selSong;
-    this->play(this->songID);
-}
-
-void StationTalkshow::cont() {
+    this->play(this->songID);*/
+    this->screen->setLine(1, this->name);
     if(this->intermission){
         if(this->situationalCounter <= 0){
             //We end the intermission

@@ -3,13 +3,8 @@
 #include <SPI.h>
 #include <SD.h>
 
-//TODO make cont() and play() the same function? they should both really do the same thing...
 void StationSplit::play() {
     this->screen->setLine(1, this->name);
-    this->cont();
-}
-
-void StationSplit::cont() {
     if(this->introducingSong){
         introducingSong = false;
         this->playSong(this->songID);

@@ -6,7 +6,6 @@ public:
     void nextSong();    //Play the next song
     void prevSong();    //Play the previous song
     void play();
-    void cont();
     void stop();
 private:
     void playSong(int trackID);
