@@ -8,7 +8,7 @@ public:
     void setup();
     void setText(String *text); //Set the text variable
     void setLine(int lineNo, String text);  //Set
-    void setLineText(int lineNo, String text);
+    void setLineUpdate(int lineNo, String text);
     void update();  //Used to auto scroll the screen, if needed
     
 private:

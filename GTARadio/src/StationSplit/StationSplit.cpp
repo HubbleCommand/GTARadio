@@ -8,7 +8,7 @@ StationSplit::StationSplit(char* name, char* source, TMRpcm* audio, ScreenContro
 }
 
 void StationSplit::play() {
-    this->screen->setLine(1, this->name);
+    this->screen->setLineUpdate(1, this->name);
     if(this->introducingSong){
         introducingSong = false;
         this->songCountDown--;
@@ -107,7 +107,7 @@ void StationSplit::playSong(int trackID) {
 
     char songname[30];
     this->audio->listInfo(trackSRC, songname, 0);
-    this->screen->setLine(2, songname);
+    this->screen->setLineUpdate(2, songname);
     this->audio->play(trackSRC);
 }
 

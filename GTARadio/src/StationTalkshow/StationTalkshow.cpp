@@ -1,7 +1,7 @@
 #include "StationTalkshow.h"
 
 void StationTalkshow::play() {
-    this->screen->setLine(1, this->name);
+    this->screen->setLineUpdate(1, this->name);
     if(this->intermission){
         if(this->situationalCounter <= 0){
             //We end the intermission
@@ -111,7 +111,7 @@ void StationTalkshow::playTalk(int songID) {
 
     char songname[30];
     this->audio->listInfo(namelov, songname, 0);
-    this->screen->setLine(2, songname);
+    this->screen->setLineUpdate(2, songname);
     this->audio->play(namelov);
 }
 
