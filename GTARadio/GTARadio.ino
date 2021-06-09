@@ -149,7 +149,7 @@ void setup()
     }
 
     selectedStationIndex = 0;
-    stationsCLASS[0]->play();
+    stationsCLASS[selectedStationIndex]->play();
 }
 
 void loop()
