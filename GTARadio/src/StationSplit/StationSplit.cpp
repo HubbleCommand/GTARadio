@@ -3,10 +3,15 @@
 #include <SPI.h>
 #include <SD.h>
 
+StationSplit::StationSplit(char* name, char* source, TMRpcm* audio, ScreenController* screen) : StationAbstract(name, source, audio, screen){
+    this->songCountDown = 6;
+}
+
 void StationSplit::play() {
     this->screen->setLine(1, this->name);
     if(this->introducingSong){
         introducingSong = false;
+        this->songCountDown--;
         this->playSong(this->songID);
     } else if(this->intermission) {   //If we are in an intermission, then play it
         if(intermissionCounter <= 0){    //make sure that we end the itermission the next loop
@@ -26,7 +31,7 @@ void StationSplit::play() {
         }
     } else {
         //Start intermission after a random number of songs have been played
-        if(random(10) > 6){
+        if(this->songCountDown <= 0){
             this->intermission = true;
             
             if(random(5 + 1) > 2){  //Play an ad
@@ -39,6 +44,7 @@ void StationSplit::play() {
                 playIntermissionIntro(false);
             }
         } else {
+            this->songCountDown = random(3,8);
             int songCount = countSongs();
             int selSong = random(songCount);
 
@@ -65,6 +71,7 @@ void StationSplit::stop() {
 }
 
 void StationSplit::nextSong() {
+    this->intermission = false;
     this->stop();
     int songCount = countSongs();
 
@@ -78,6 +85,7 @@ void StationSplit::nextSong() {
 }
 
 void StationSplit::prevSong() {
+    this->intermission = false;
     this->stop();
     int songCount = countSongs();
 
