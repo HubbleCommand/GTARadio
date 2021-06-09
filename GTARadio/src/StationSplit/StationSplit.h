@@ -14,5 +14,10 @@ private:
     int countSongs();
     char songCount = 0;
 
-    bool introducingSong;   //If the station was prviously introducing a song
+    //Host audio stuff
+    int hostCount = 0;
+
+    //Song intro stuff
+    bool introducingSong = false;   //If the station was prviously introducing a song
+    bool findSongIntro(int number, int trackID);
 };

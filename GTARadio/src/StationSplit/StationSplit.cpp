@@ -1,5 +1,9 @@
 #include "StationSplit.h"
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
 
+//TODO make cont() and play() the same function? they should both really do the same thing...
 void StationSplit::play() {
     this->screen->setLine(1, this->name);
 
@@ -9,11 +13,12 @@ void StationSplit::play() {
     int songCount = countFiles(songSRC);
     int selSong = random(songCount);*/
 
-    int songCount = countSongs();
+    /*int songCount = countSongs();
     int selSong = random(songCount);
 
     this->songID = selSong;
-    this->play(this->songID);
+    this->play(this->songID);*/
+    this->cont();
 }
 
 void StationSplit::cont() {
@@ -40,12 +45,9 @@ void StationSplit::cont() {
 
         this->songID = selSong;
 
-        if(random(10 + 1) >= 5){
-            introducingSong = true;
-            this->playTrackIntro(this->songID);
-        } else {
-            this->play(this->songID);
-        }
+        //ALWAYS play song intro, if it exists
+        introducingSong = true;
+        this->playTrackIntro(this->songID);
     }
 }
 
@@ -108,11 +110,29 @@ void StationSplit::play(int trackID) {
     this->audio->play(trackSRC);
 }
 
-void StationSplit::playTrackIntro(int trackID) {
-    //NOTE
-    //This won't always play a song intro, especially if no song intros exist!
-    int introToPlay = random(1,2 + 1);  //Max bounds is exclusive, so add 1
+bool StationSplit::findSongIntro(int number, int trackID){
+    char trackSRC[22];
+    strcpy(trackSRC, this->source);
+    char tString[16];
+    sprintf(tString, "/INTRO/%i_%i.wav", trackID, number);
+    strcat(trackSRC, tString);
 
+    if(SD.exists(trackSRC)){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void StationSplit::playTrackIntro(int trackID) {
+    int introCount = 1;
+
+    while(findSongIntro(introCount, trackID)){
+        introCount++;
+    }
+
+    int introToPlay = random(1,introCount);  //Max bounds is exclusive, so add 1, BUT AS introCount STARTS AT ONE WE DON'T NEED TO
+    
     char trackSRC[22];
     strcpy(trackSRC, this->source);
     char tString[16];
