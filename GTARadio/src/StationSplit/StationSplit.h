@@ -24,6 +24,7 @@ private:
     //Intermission (advert / news / maybe GTA IV weather) stuff
     void playIntermissionIntro(bool advert);
     void playStationID();   //Played at the end of the intermission
+    void playHostSnippet();
 
     int songCountDown = 0;
     int intermissionCounter; //Used for counting down the ads / news reels to play

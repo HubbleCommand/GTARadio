@@ -41,7 +41,11 @@ void StationSplit::cont() {
             if(this->news){
                 playNews();
             } else {
-                playAdvert();
+                if(random(3)>2){
+                    playHostSnippet();
+                } else {
+                    playAdvert();
+                }
             }
         }
     } else {
@@ -179,15 +183,15 @@ void StationSplit::playIntermissionIntro(bool advert) {
 
 void StationSplit::playStationID() {
     char idSRC[16 + 12];
-        strcpy(idSRC, this->source);
-        strcat(idSRC, "/ID");
-        int idCount = countFiles(idSRC);
+    strcpy(idSRC, this->source);
+    strcat(idSRC, "/ID");
+    int idCount = countFiles(idSRC);
 
-        int idToPlay = random(1, idCount + 1);
-        char tString[12];
-        sprintf(tString, "/ID_%i.wav", idToPlay);
-        strcat(idSRC, tString);
-        this->audio->play(idSRC);
+    int idToPlay = random(1, idCount + 1);
+    char tString[12];
+    sprintf(tString, "/ID_%i.wav", idToPlay);
+    strcat(idSRC, tString);
+    this->audio->play(idSRC);
 }
 
 void StationSplit::playTrackIntro(int trackID) {
@@ -205,6 +209,19 @@ void StationSplit::playTrackIntro(int trackID) {
     sprintf(tString, "/INTRO/%i_%i.wav", trackID, introToPlay);
     strcat(trackSRC, tString);
     this->audio->play(trackSRC);
+}
+
+void StationSplit::playHostSnippet(){
+    char hostSRC[16 + 12];
+    strcpy(hostSRC, this->source);
+    strcat(hostSRC, "/HOST");
+    int hostCount = countFiles(hostSRC);
+
+    int hostToPlay = random(1, hostCount + 1);
+    char tString[12];
+    sprintf(tString, "/%i.wav", hostToPlay);
+    strcat(hostSRC, tString);
+    this->audio->play(hostSRC);
 }
 
 int StationSplit::countSongs(){
