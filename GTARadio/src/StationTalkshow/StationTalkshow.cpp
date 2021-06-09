@@ -4,22 +4,10 @@
 
 void StationTalkshow::play() {
     this->screen->setLine(1, this->name);
-    
-    //Both talkshow stations only have 4 monos, so good
-    //int selectedTalk = random(this->songCount - '0');   //- '0' easy conversion to int
-    /*int selectedTalk = random(this->songCount);   //- '0' easy conversion to int
-
-    char name_with_extension[22];
-    strcpy(name_with_extension, this->source); 
-    
-    char tmpString[13];
-    sprintf(tmpString, "/MONO/%i.wav", selectedTalk);
-
-    strcat(name_with_extension, tmpString);*/
 
     this->intermission = true;
     this->situationalCounter = random(3,6);
-    
+
     char songSRCFolder[15];
     strcpy(songSRCFolder, this->source);
     strcat(songSRCFolder, "/MONO");
@@ -29,20 +17,6 @@ void StationTalkshow::play() {
 
     this->songID = selSong;
     this->play(this->songID);
-    /*
-    char songSRC[22];
-    strcpy(songSRC, this->source);
-    
-    char tString[14];
-    sprintf(tString, "/MONO/%i.wav", selSong);
-
-    strcat(songSRC, tString);
-
-    char songname[50];
-    this->audio->listInfo(songSRC, songname, 0);
-    this->screen->setLine(2, songname);
-
-    this->audio->play(songSRC, millis() / 1000);*/
 }
 
 void StationTalkshow::cont() {
@@ -78,7 +52,6 @@ void StationTalkshow::cont() {
         char songSRCFolder[15];
         strcpy(songSRCFolder, this->source);
         strcat(songSRCFolder, "/MONO");
-        //int songCount = countFiles(songSRCFolder);
         int songCount = countTalks();
         int selSong = random(songCount);
 
@@ -92,21 +65,6 @@ void StationTalkshow::cont() {
         this->songID = selSong;
         this->play(this->songID);
     }
-    
-    /*
-    char songSRC[22];
-    strcpy(songSRC, this->source);
-    
-    char tString[14];
-    sprintf(tString, "/MONO/%i.wav", selSong);
-
-    strcat(songSRC, tString);
-
-    char songname[50];
-    this->audio->listInfo(songSRC, songname, 0);
-    this->screen->setLine(2, songname);
-
-    this->audio->play(songSRC);*/
 }
 
 void StationTalkshow::stop() {
@@ -121,7 +79,6 @@ void StationTalkshow::nextSong() {
     char songSRCFolder[15];
     strcpy(songSRCFolder, this->source);
     strcat(songSRCFolder, "/MONO");
-    //int songCount = countFiles(songSRCFolder);
     int songCount = countTalks();
 
     if(this->songID < songCount - 1){
@@ -139,7 +96,6 @@ void StationTalkshow::prevSong() {
     char songSRCFolder[15];
     strcpy(songSRCFolder, this->source);
     strcat(songSRCFolder, "/MONO");
-    //int songCount = countFiles(songSRCFolder);
     int songCount = countTalks();
 
     if(!(this->songID <= 0)){
