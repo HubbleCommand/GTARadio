@@ -59,7 +59,12 @@ void StationSplit::play() {
 
             //ALWAYS play song intro, if it exists
             this->introducingSong = true;
-            this->playTrackIntro(this->songID);
+            //Randomly just have the host say something as an intro
+            if(random(10)>7){
+                this->playHostSnippet();
+            } else {
+                this->playTrackIntro(this->songID);
+            }
         }
     }
 }
