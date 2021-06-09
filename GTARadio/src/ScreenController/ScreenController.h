@@ -5,14 +5,14 @@
 class ScreenController{
 public:
     ScreenController(uint8_t addr, int x, int y);
-    void setup();
-    void setText(String *text); //Set the text variable
-    void setLine(int lineNo, String text);  //Set
-    void setLineUpdate(int lineNo, String text);
-    void update();  //Used to auto scroll the screen, if needed
-    
+    void setup();                                   //Setup the LCD screen
+    void setText(String *text);                     //Set the text variable
+    void setLine(int lineNo, String text);          //Set the text for a specific line
+    void setLineUpdate(int lineNo, String text);    //Set the text for a specific line & update the screen
+    void update();                                  //Update the screen
+
 private:
-    int x, y;
-    String *text;
-    LiquidCrystal_I2C* lcd; 
+    int x, y;                   //Dimensions of the screen
+    String *text;               //The text of the screen
+    LiquidCrystal_I2C* lcd;     //Pointer to the actual controller
 };
