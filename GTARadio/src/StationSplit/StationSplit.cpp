@@ -6,29 +6,10 @@
 //TODO make cont() and play() the same function? they should both really do the same thing...
 void StationSplit::play() {
     this->screen->setLine(1, this->name);
-
-    /*char songSRC[15];
-    strcpy(songSRC, this->source);
-    strcat(songSRC, "/SONGS");
-    int songCount = countFiles(songSRC);
-    int selSong = random(songCount);*/
-
-    /*int songCount = countSongs();
-    int selSong = random(songCount);
-
-    this->songID = selSong;
-    this->play(this->songID);*/
     this->cont();
 }
 
 void StationSplit::cont() {
-    /*char songSRC[15];
-    strcpy(songSRC, this->source);
-    strcat(songSRC, "/SONGS");
-    int songCount = countFiles(songSRC);
-    this->songCount = songCount;
-    int selSong = random(this->songCount);*/
-
     if(this->introducingSong){
         introducingSong = false;
         this->playSong(this->songID);
@@ -90,13 +71,6 @@ void StationSplit::stop() {
 
 void StationSplit::nextSong() {
     this->stop();
-    
-    /*char songSRCFolder[15];
-    strcpy(songSRCFolder, this->source);
-    strcat(songSRCFolder, "/SONGS");
-    int songCount = countFiles(songSRCFolder);
-
-    this->songCount = songCount;*/
     int songCount = countSongs();
 
     if(this->songID < this->songCount - 1){
@@ -110,13 +84,6 @@ void StationSplit::nextSong() {
 
 void StationSplit::prevSong() {
     this->stop();
-
-    /*char songSRCFolder[15];
-    strcpy(songSRCFolder, this->source);
-    strcat(songSRCFolder, "/SONGS");
-    int songCount = countFiles(songSRCFolder);
-
-    this->songCount = songCount;*/
     int songCount = countSongs();
 
     if(!(this->songID <= 0)){
