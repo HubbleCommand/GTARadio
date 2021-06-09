@@ -1,20 +1,6 @@
 #include "StationTalkshow.h"
 
 void StationTalkshow::play() {
-    /*this->screen->setLine(1, this->name);
-
-    this->intermission = true;
-    this->situationalCounter = random(3,6);
-
-    char songSRCFolder[15];
-    strcpy(songSRCFolder, this->source);
-    strcat(songSRCFolder, "/MONO");
-    //int songCount = countFiles(songSRCFolder);
-    int songCount = countTalks();
-    int selSong = random(songCount);
-
-    this->songID = selSong;
-    this->play(this->songID);*/
     this->screen->setLine(1, this->name);
     if(this->intermission){
         if(this->situationalCounter <= 0){
