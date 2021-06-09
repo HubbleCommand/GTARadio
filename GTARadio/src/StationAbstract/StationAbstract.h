@@ -11,24 +11,21 @@ public:
     StationAbstract(char* name, char* source, TMRpcm* audio, ScreenController* screen);
     virtual void nextSong() = 0;    //Play the next song
     virtual void prevSong() = 0;    //Play the previous song
-    virtual void play() = 0;    //Will start playing station at a random time, used when first playing the station
-    virtual void stop() = 0;    //Stop playing the radio station
-    //virtual void play(int startTime);   //Utility functions essentially...
-    //virtual void play(char* song);
-    //virtual void play(char* song, int startTime);
-    int countFiles(char* source);
-    void playAdvert();
-    void playNews();
+    virtual void play() = 0;        //Will start playing station at a random time, used when first playing the station
+    virtual void stop() = 0;        //Stop playing the radio station
+    int countFiles(char* source);   //Count the files in a given directory
+    void playAdvert();              //Play a random advertisement
+    void playNews();                //Play a random news reel
 
     char* getTrackInfo(char* source, int infoID);
     float getTrackDuration(char* source);
 
-    char* name, *source;
-    TMRpcm* audio;
-    ScreenController* screen;
+    char* name, *source;            //Name & source path of the station
+    TMRpcm* audio;                  //Pointer to the audio controller
+    ScreenController* screen;       //Pointer to the screen controller
 
     int seconds;
-    char songID;
+    char songID;                    //The id of the currently playing song / the last song that stopped playing
     
 private:
     
