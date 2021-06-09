@@ -9,7 +9,7 @@ public:
     void play();
     void stop();
 private:
-    void play(int songID);
+    void playTalk(int songID);
 
     //Song counting stuff
     int countTalks();

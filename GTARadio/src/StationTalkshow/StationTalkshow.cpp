@@ -59,7 +59,7 @@ void StationTalkshow::play() {
         }
 
         this->songID = selSong;
-        this->play(this->songID);
+        this->playTalk(this->songID);
     }
 }
 
@@ -83,7 +83,7 @@ void StationTalkshow::nextSong() {
         this->songID = 0;
     }
     
-    this->play(this->songID);
+    this->playTalk(this->songID);
 }
 
 void StationTalkshow::prevSong() {
@@ -100,7 +100,7 @@ void StationTalkshow::prevSong() {
         this->songID = songCount - 1;
     }
     
-    this->play(this->songID);
+    this->playTalk(this->songID);
 }
 
 void StationTalkshow::playStationID() {
@@ -116,7 +116,7 @@ void StationTalkshow::playStationID() {
     this->audio->play(idSRC);
 }
 
-void StationTalkshow::play(int songID) {
+void StationTalkshow::playTalk(int songID) {
     char namelov[22];
     strcpy(namelov, this->source);
     char tString[14];
