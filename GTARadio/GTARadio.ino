@@ -198,6 +198,6 @@ void loop()
     }
 
     if(!tmrpcm.isPlaying()){    //If no audio is playing, do something!
-        stationsCLASS[selectedStationIndex]->cont();
+        stationsCLASS[selectedStationIndex]->play();
     }
 }
