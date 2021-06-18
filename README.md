@@ -65,54 +65,6 @@ root
         └───WEATH   : host audio snippets introducing news intermission (optional, for GTA IV stations ONLY). CURRENTLY UNUSED.
 ```
 
-
-## Commands to bulk rename files
-After having reorganised the files & folders (see "Desired audio directory structure"), all of the files & folders must also be renamed. This is because the Arduino SD package that handles reading audio files uses the (8.3 filename)[https://en.wikipedia.org/wiki/8.3_filename] convention, which only supports file and directory names up to 8 characters long.
-
-The files that can be renamed by bulk command are those in GENERAL, MONO, TIME, and TO. INTRO and SONGS have to be done manually. ID doesn't need any renaming.
-
-In the root directory of your audio files, execute the following commands
-```
-Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "GENERAL","GEN"}
-Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "MONO_SOLO","MONO"}
-Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "EVENING","EVE"}
-Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "MORNING","MORN"}
-Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_AD","TAD"}
-Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_NEWS","TNEW"}
-Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_WEATHER","TWET"}
-```
-
-News and Ad files don't need any sort of name, so can be renamed just by incrementing number:
-
-```
-$i = 0
-Get-ChildItem -Path D:\(ADS or NEWS) -Filter *.wav |
-ForEach-Object {
-   $extension = $_.Extension
-   $newName = "{0:d3}{1}" -f  $i, $extension
-   $i++
-   Rename-Item -Path $_.FullName -NewName $newName
-}
-```
-
-News, Ads, MONO, TIME, and TO files need their leading zeroes removed, which can be done with either:
-- Running the following command twice
-```
-dir | rename-item -NewName {$_.name -replace "^0",""}
-```
-
-- Running the following once, but renaming the zero-th file from ".wav" to "0.wav"
-```
-Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "_0","_"}
-```
-
-The hardest is renaming BOTH songs & intros to match. As I wanted meta data to be added as well (Song Name, Artist, Year), this has to all be done manually.
-
-Songs are just numbered starting at 0. Each song's intro is then named by the song's number, and the number of the intro. I.e. for song 6, the second intro's filename would be
-```
-6_2.wav
-```
-
 ## Commands used to organise stations & songs
 Both GENERAL and MONO in Split stations are the same : the station host just talking.
 They have hence both been put into HOST
@@ -156,7 +108,6 @@ FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%P
 
 GTA V Stations
 ```
-set path=PATH_TO_YOUR_FILES
 set stationName=01_CROCK
 set stationName=02_POP
 set stationName=03_HH_N
@@ -184,7 +135,6 @@ set stationName=G_DANR
 set stationName=8_EXTRA_TRACKS
 set stationName=H_FUS
 set stationName=I_HARD
-set stationName=11_INDEPENDENCE (is this even a station)
 set stationName=J_JAZZ
 set stationName=K_K109
 set stationName=L_LZLW
@@ -199,7 +149,51 @@ set stationName=T_VCFM
 set stationName=U_VLAD
 set stationName=V_WKTT
 ```
-FOR EXTRA TRACKS
+
+
+## Commands to bulk rename files
+After having reorganised the files & folders, all of the files & folders must also be renamed. This is because the Arduino SD package that handles reading audio files uses the (8.3 filename)[https://en.wikipedia.org/wiki/8.3_filename] convention, which only supports file and directory names up to 8 characters long.
+
+The files that can be renamed by bulk command are those in GENERAL, MONO, TIME, and TO. INTRO and SONGS have to be done manually. ID doesn't need any renaming.
+
+In the root directory of your audio files, execute the following commands
 ```
-FOR /R "%PATH_TO_YOUR_FILES%\8_EXTRA_TRACKS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\8_EXTRA_TRACKS"
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "GENERAL","GEN"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "MONO_SOLO","MONO"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "EVENING","EVE"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "MORNING","MORN"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_AD","TAD"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_NEWS","TNEW"}
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_WEATHER","TWET"}
+```
+
+News and Ad files don't need any sort of name, so can be renamed just by incrementing number:
+
+```
+$i = 0
+Get-ChildItem -Path D:\(ADS or NEWS) -Filter *.wav |
+ForEach-Object {
+   $extension = $_.Extension
+   $newName = "{0:d3}{1}" -f  $i, $extension
+   $i++
+   Rename-Item -Path $_.FullName -NewName $newName
+}
+```
+
+News, Ads, MONO, TIME, and TO files need their leading zeroes removed, which can be done with either:
+- Running the following command twice
+```
+dir | rename-item -NewName {$_.name -replace "^0",""}
+```
+
+- Running the following once, but renaming the zero-th file from ".wav" to "0.wav"
+```
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "_0","_"}
+```
+
+The hardest is renaming BOTH songs & intros to match. As I wanted meta data to be added as well (Song Name, Artist, Year), this has to all be done manually.
+
+Songs are just numbered starting at 0. Each song's intro is then named by the song's number, and the number of the intro. I.e. for song 6, the second intro's filename would be
+```
+6_2.wav
 ```
