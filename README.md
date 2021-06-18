@@ -11,11 +11,11 @@ File and directory names cannot be longer than 8 characters. A full path can be 
 Adding the full folder as an album to Groove Music can really bug playback, and wrong files can be played!
 
 # Requesting audio
-As none of the audio belongs to me, I cannot make the converted audio files publicly available. However you can email me and I'll give you a link to the converted & organized files. Not all stations have been prepared, as some require vast amounts of manual conversion.
+As none of the audio belongs to me, I cannot make the converted audio files publicly available. However you can email me and I'll give you a link to the converted & organized files, that have also had the appropriate Metadata added to them.
 
 # Converting files yourself
 ## Converting Audio
-The audio library used needs a very specific wav format, or it won't work as intended. Only WAV files are accepted, and they must have a sample rate between 8-32kHz and encoded in Unsigned 8-BIT PCM. (GTA V is encoded at 48 kHz, some at 44100Hz, with 32 bit something)
+The audio library used needs a very specific wav format, or it won't work as intended. Only WAV files are accepted, they must be Mono (unless configuring Stereo), they must have a sample rate between 8-32kHz and encoded in Unsigned 8-BIT PCM. (GTA V is encoded at 48 kHz, some at 44100Hz, with 32 bit something)
 - Converting Stereo to mono : https://forum.audacityteam.org/viewtopic.php?t=57821
 
 - Not really helpful but in case : https://github.com/TMRh20/TMRpcm/issues/125
@@ -24,26 +24,50 @@ The audio library used needs a very specific wav format, or it won't work as int
 https://stackoverflow.com/questions/19699059/representing-directory-file-structure-in-markdown-syntax
 ```
 root
-└───unsplit station
-│   │   SRC.wav
+└───ADS                 : all the ads in their own seperate files (from GTA V & IV), renamed to increasing numbers starting at 0
+│   │   0.wav
+│   │   1.wav
+│   │   2.wav
+│   └───...
+│
+└───unsplit station     : unsplit stations have a single SRC.wav file for their audio
+│   └───SRC.wav
 │ 
-└───talkshow station
+└───talkshow station    : talkshow stations have ID audio introducing the station, and MONO which are the talkshows
 │   └───ID
-│   └───MONO
+│   │   │   ID_1.wav
+│   │   │   ID_2.wav
+│   │   └───...
+│   │
+│   └───MONO    : talkshows audio snippets
+│       │   0.wav
+│       │   1.wav
+│       └───...
 │
 └───split station
-    └───HOST
-    └───ID
-    └───INTRO
-    └───SONGS
-    └───TIME
+    └───HOST    : radio host audio snippets, for file naming see talkshow MONO
+    └───ID      : see talkshow ID
+    └───INTRO   : host audio snippets that introduce SPECIFIC SONGS. Named by song number _ intro number i.e 0_1.wav. Song numbers start at 0 but intro numbers start at 1 (the latter numbering is taken from GTA filenames).
+    │   │   0_1.wav
+    │   │   0_2.wav
+    │   │   1_1.wav
+    │   └───...
+    │
+    └───SONGS   : songs duh, for file naming see talkshow MONO
+    │   │   0.wav
+    │   │   1.wav
+    │   └───...
+    │
+    └───TIME    : more host audio, but specifically saying time of day. CURRENTLY UNUSED.
     └───TO
-        └───AD
-        └───NEWS
-        └───WEATH (optional, for GTA IV stations)
+        └───AD      : host audio snippets introducing ad intermission
+        └───NEWS    : host audio snippets introducing news intermission
+        └───WEATH   : host audio snippets introducing news intermission (optional, for GTA IV stations ONLY). CURRENTLY UNUSED.
 ```
+
+
 ## Commands to bulk rename files
-After having reorganised the files & folders (see the appropriate section), all of the files & folders must also be renamed. This is because the file utility only supports files with names up to 8 characters long.
+After having reorganised the files & folders (see "Desired audio directory structure"), all of the files & folders must also be renamed. This is because the Arduino SD package that handles reading audio files uses the (8.3 filename)[https://en.wikipedia.org/wiki/8.3_filename] convention, which only supports file and directory names up to 8 characters long.
 
 The files that can be renamed by bulk command are those in GENERAL, MONO, TIME, and TO. INTRO and SONGS have to be done manually. ID doesn't need any renaming.
 
@@ -56,10 +80,6 @@ Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "MORNING","MORN"
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_AD","TAD"}
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_NEWS","TNEW"}
 Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "TO_WEATHER","TWET"}
-```
-In the MONO, TIME, and TO directories, you will also need to run
-```
-Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "_0","_"}
 ```
 
 News and Ad files don't need any sort of name, so can be renamed just by incrementing number:
@@ -75,30 +95,37 @@ ForEach-Object {
 }
 ```
 
-You can then remove the leading zeroes by running the following command twice
+News, Ads, MONO, TIME, and TO files need their leading zeroes removed, which can be done with either:
+- Running the following command twice
 ```
 dir | rename-item -NewName {$_.name -replace "^0",""}
 ```
 
+- Running the following once, but renaming the zero-th file from ".wav" to "0.wav"
+```
+Get-ChildItem -Recurse | rename-item -NewName {$_.name -replace "_0","_"}
+```
+
 The hardest is renaming BOTH songs & intros to match. As I wanted meta data to be added as well (Song Name, Artist, Year), this has to all be done manually.
 
+Songs are just numbered starting at 0. Each song's intro is then named by the song's number, and the number of the intro. I.e. for song 6, the second intro's filename would be
+```
+6_2.wav
+```
 
 ## Commands used to organise stations & songs
-Both GENERAL and MONO are the same : the station host just talking.
+Both GENERAL and MONO in Split stations are the same : the station host just talking.
 They have hence both been put into HOST
 All songs were ripped with OpenIV
 
-If you have ripped the songs as well, you will need to organise them to be usable in this program with the commands below, IN THE ORDER THEY APPEAR. Be warned that you will also need about 17GB for storage.
+If you have ripped the songs, you will need to organise them to be usable in this program with the commands below, IN THE ORDER THEY APPEAR. Be warned that you will also need about 30 GB for storage before converting them to lower sample rates etc which should only take 6-7 GB.
 
-Unfortunately, there are two types of stations:
+Unfortunately, there are three types of stations:
 - Ones with host voicelines, general voicelines, and songs split into files     - Split stations
+- Ones with host voicelines, general voicelines, and songs split into files     - Talkshow stations
 - Ones with voicelines, songs, etc. mixed all into one or multiple files        - Unsplit stations
 
 Additional note: most files that start with 0x can be removed, except for unsplit stations.
-
-For Unsplit stations, we just need to use a tool like Audacity to merge the files together (as well as audio channels).
-
-For Split stations, we need to manually 
 
 There are a few things we want to do: 
 - Seperate the songs from everything else
@@ -109,16 +136,14 @@ First, we want to move all the non-song files into their seperate folders. For s
 set PATH_TO_YOUR_FILES=DRIVE:\PATH\TO\YOUR\FILES
 ```
 
-News & Ads
+News, Ads, Weather, ID, MONO. 
 ```
 FOR /R "%PATH_TO_YOUR_FILES%\ADS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\ADS"
 FOR /R "%PATH_TO_YOUR_FILES%\NEWS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\NEWS"
 FOR /R "%PATH_TO_YOUR_FILES%\WEATHER" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\WEATHER" (specific to GTA IV)
-```
 
-Secondly, we want to move all the other non-song files: id and mono
-```
 set stationName=18_90S_ROCK
+
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\mono_*.wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\%stationName%\MONO"
 FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\id_*.wav) DO COPY "%i" "%PATH_TO_YOUR_FILES%\%stationName%\ID"
 ```
@@ -145,12 +170,6 @@ set stationName=15_MTWN
 set stationName=16_SILK
 set stationName=17_FUNK
 set stationName=18_90RK
-```
-For GTA IV
-```
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%\SONGS" %i IN (*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\SONGS"
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\SOLO_*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\MONO"
-FOR /R "%PATH_TO_YOUR_FILES%\%stationName%" %i IN (\id_*.wav) DO MOVE "%i" "%PATH_TO_YOUR_FILES%\%stationName%\ID"
 ```
 
 GTA IV Stations
