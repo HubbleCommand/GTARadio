@@ -13,14 +13,25 @@ Adding the full folder as an album to Groove Music can really bug playback, and 
 # Requesting audio
 As none of the audio belongs to me, I cannot make the converted audio files publicly available. However you can email me and I'll give you a link to the converted & organized files, that have also had the appropriate Metadata added to them.
 
-# Converting files yourself
+# Making your own audio
 ## Converting Audio
+All songs were ripped with OpenIV from GTA IV and GTA V.
+Audio files were converting with Audacity.
+
+If you have ripped the songs, you will need to organise them to be usable in this program with the commands below, IN THE ORDER THEY APPEAR. Be warned that you will also need about 30 GB for storage before converting them to lower sample rates etc which should only take 6-7 GB.
+
 The audio library used needs a very specific wav format, or it won't work as intended. Only WAV files are accepted, they must be Mono (unless configuring Stereo), they must have a sample rate between 8-32kHz and encoded in Unsigned 8-BIT PCM. (GTA V is encoded at 48 kHz, some at 44100Hz, with 32 bit something)
 - Converting Stereo to mono : https://forum.audacityteam.org/viewtopic.php?t=57821
-
 - Not really helpful but in case : https://github.com/TMRh20/TMRpcm/issues/125
 
 ## Desired audio directory structure
+Unfortunately, there are three types of stations:
+- Ones with host voicelines, general voicelines, and songs split into files     - Split stations
+- Ones with host voicelines, general voicelines, and songs split into files     - Talkshow stations
+- Ones with voicelines, songs, etc. mixed all into one or multiple files        - Unsplit stations
+
+Additional note: most files that start with 0x can be removed, except for unsplit stations.
+
 https://stackoverflow.com/questions/19699059/representing-directory-file-structure-in-markdown-syntax
 ```
 root
@@ -66,18 +77,7 @@ root
 ```
 
 ## Commands used to organise stations & songs
-Both GENERAL and MONO in Split stations are the same : the station host just talking.
-They have hence both been put into HOST
-All songs were ripped with OpenIV
-
-If you have ripped the songs, you will need to organise them to be usable in this program with the commands below, IN THE ORDER THEY APPEAR. Be warned that you will also need about 30 GB for storage before converting them to lower sample rates etc which should only take 6-7 GB.
-
-Unfortunately, there are three types of stations:
-- Ones with host voicelines, general voicelines, and songs split into files     - Split stations
-- Ones with host voicelines, general voicelines, and songs split into files     - Talkshow stations
-- Ones with voicelines, songs, etc. mixed all into one or multiple files        - Unsplit stations
-
-Additional note: most files that start with 0x can be removed, except for unsplit stations.
+Both GENERAL and MONO in Split stations sources exported with OpenIV are the same : the station host just talking. They have hence been put into the same HOST file.
 
 There are a few things we want to do: 
 - Seperate the songs from everything else
