@@ -26,8 +26,4 @@ public:
 
     int seconds;
     char songID;                    //The id of the currently playing song / the last song that stopped playing
-    
-private:
-    
-
 };
