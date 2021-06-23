@@ -66,7 +66,7 @@ StationSplit JOURNEY = StationSplit((char*)"The Journey", (char*)"E_CLASS", &tmr
 StationUnsplit ELECTRO_CHOC = StationUnsplit((char*)"Electro-Choc", (char*)"F_DANM", &tmrpcm, &screen);
 StationSplit RADIO_BROCKER = StationSplit((char*)"Radio Brocker", (char*)"G_DANR", &tmrpcm, &screen);
 //WTF 8? Just extra songs?
-StationSplit FUSION_FM = StationSplit((char*)"Fusion FM", (char*)"H_FUS", &tmrpcm, &screen);    //Not working?
+StationSplit FUSION_FM = StationSplit((char*)"Fusion FM", (char*)"H_FUS", &tmrpcm, &screen);
 StationSplit LC_HARD_CORE = StationSplit((char*)"Liberty City Hard Core", (char*)"I_HARD", &tmrpcm, &screen);
 //!!! CHANNEL 11 WAS MEANT FOR A USER-MADE RADIO STATION ON PC VERSIONS OF GTA IV !!!
 StationSplit JAZZ_NATION = StationSplit((char*)"Jazz Nation Radio 108.5", (char*)"J_JAZZ", &tmrpcm, &screen);
@@ -74,7 +74,7 @@ StationSplit K109 = StationSplit((char*)"K109 The Studio", (char*)"K_K109", &tmr
 StationTalkshow INTEGRITY = StationTalkshow((char*)"Integrity 2.0", (char*)"L_LZLW", &tmrpcm, &screen);
 StationSplit LIBERTY_ROCK = StationSplit((char*)"Liberty Rock Radio", (char*)"M_LIBR", &tmrpcm, &screen);
 StationSplit ACTUALIZATION = StationSplit((char*)"Self-Actualization FM", (char*)"N_MED", &tmrpcm, &screen);
-StationUnsplit THE_CLASSICS = StationUnsplit((char*)"The Classics 104.1", (char*)"O_NYCL", &tmrpcm, &screen); //Not sure about name...
+StationUnsplit THE_CLASSICS = StationUnsplit((char*)"The Classics 104.1", (char*)"O_NYCL", &tmrpcm, &screen);
 StationTalkshow PLR = StationTalkshow((char*)"Public Liberty Radio", (char*)"P_PLR", &tmrpcm, &screen);
 StationUnsplit RAMJAM = StationUnsplit((char*)"RamJam FM", (char*)"Q_RJFM", &tmrpcm, &screen);
 StationSplit SAN_JUAN_SOUNDS = StationSplit((char*)"San Juan Sounds", (char*)"R_SJS", &tmrpcm, &screen);
