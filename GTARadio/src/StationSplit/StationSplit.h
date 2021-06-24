@@ -2,8 +2,7 @@
 
 class StationSplit : public StationAbstract {
 public:
-    //using StationAbstract::StationAbstract;
-    StationSplit(char* name, char* source, TMRpcm* audio, ScreenController* screen);
+    StationSplit(char* name, char* source, TMRpcm* audio, ScreenController* screen);    //Uses custom constructor for setting some variables
     void nextSong();    //Play the next song
     void prevSong();    //Play the previous song
     void play();
