@@ -12,5 +12,5 @@ public:
     void prevSong();    //Play the previous song
 
     void play();    //Will start playing station at a random time
-    void stop();
+    void stop();    //Stop playing the station
 };
