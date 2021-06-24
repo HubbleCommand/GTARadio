@@ -32,14 +32,6 @@ int StationAbstract::countFiles(char* source){
     return count;
 }
 
-//MAKE SURE TO DEALLOCATE THE SPACE USED BY PERSISTENT WHEN USING THIS FUNCTION!
-//Refer to https://stackoverflow.com/questions/5660527/how-do-i-return-a-char-array-from-a-function/5660589
-char* StationAbstract::getTrackInfo(char* source, int infoID){  //0 - Track Name, 1 - Artist name
-    char* persistent = malloc(50);
-    this->audio->listInfo(source, persistent, infoID);
-    return persistent;
-}
-
 float StationAbstract::getTrackDuration(char* source){
     //Taken from https://github.com/TMRh20/TMRpcm/issues/141
     File sourceFile = SD.open(source);

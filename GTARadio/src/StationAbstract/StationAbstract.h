@@ -17,7 +17,8 @@ public:
     void playAdvert();              //Play a random advertisement
     void playNews();                //Play a random news reel
 
-    char* getTrackInfo(char* source, int infoID);
+    //Removed this function due to possible memory leaks
+    //char* getTrackInfo(char* source, int infoID); //Refer to https://stackoverflow.com/questions/5660527/how-do-i-return-a-char-array-from-a-function/5660589
     float getTrackDuration(char* source);
 
     char* name, *source;            //Name & source path of the station
