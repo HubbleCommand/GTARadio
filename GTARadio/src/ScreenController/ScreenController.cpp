@@ -24,11 +24,14 @@ void ScreenController::setLineUpdate(int lineNo, String text){
 }  
 
 void ScreenController::setLine(int lineNo, String text){
-    //this->lcd->setCursor(0, lineNo);
-    //this->lcd->print(text);
-    this->text[lineNo] = text;
-    this->lcd->setCursor(0, lineNo);
-    this->lcd->print(this->text[lineNo].substring(0,20));
+    if(lineNo < this->y && lineNo > 0){   //Works, as y is total count of lines
+        //this->lcd->setCursor(0, lineNo);
+        //this->lcd->print(text);
+        this->text[lineNo] = text;
+        this->lcd->setCursor(0, lineNo);
+        this->lcd->print(this->text[lineNo].substring(0,this->x));  //TODO check this actually works with x length of the screen
+    }
+    //We don't wanna go over...
 }  
 
 void ScreenController::update(){
@@ -36,6 +39,25 @@ void ScreenController::update(){
     this->lcd->clear();
     for(int i = 0; i < this->y; i++){
         this->lcd->setCursor(0,i);
-        this->lcd->print(this->text[i]);
+        //this->lcd->print(this->text[i]);
+        if(this->text[i].length() > this->x){
+            String tmp = this->text[i].substring(0,(this->x - 1));
+            tmp.concat(">");
+            this->lcd->print(tmp);
+        } else {
+            this->lcd->print(this->text[i]);
+        }
     }
+}
+
+void ScreenController::printStation(char* name){
+    setLineUpdate(1, name);
+}
+
+void ScreenController::printSong(char* name){
+    setLineUpdate(2, name);
+}
+
+void ScreenController::printVolume(int volume){
+    
 }
