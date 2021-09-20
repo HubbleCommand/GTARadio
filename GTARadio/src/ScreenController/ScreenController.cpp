@@ -2,6 +2,7 @@
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 #include "ScreenController.h"
+#include "../defines.h"
 
 ScreenController::ScreenController(uint8_t addr, int x, int y){
     this->x = x;
@@ -51,11 +52,11 @@ void ScreenController::update(){
 }
 
 void ScreenController::printStation(char* name){
-    setLineUpdate(1, name);
+    setLineUpdate(LCD_CHANNEL_LINE, name);
 }
 
 void ScreenController::printSong(char* name){
-    setLineUpdate(2, name);
+    setLineUpdate(LCD_SONG_LINE, name);
 }
 
 void ScreenController::printVolume(int volume){
