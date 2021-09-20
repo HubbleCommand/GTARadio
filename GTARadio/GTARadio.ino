@@ -32,8 +32,6 @@ Button butPrevStation = Button(3);
 Button butNextSong = Button(40);
 Button butPrevSong = Button(41);
 
-StationAbstract* stationsCLASS[NUMBER_OF_STATIONS]; //Needs to be array of pointers, as is Abstract class (would otherwise need to import std::vector)
-
 int selectedStationIndex;
 int lastPotState;
 int startTime = 0;
@@ -83,6 +81,15 @@ StationSplit VCFM = StationSplit((char*)"Vice City FM", (char*)"T_VCFM", &tmrpcm
 StationSplit VLADIVOSTOK = StationSplit((char*)"Vladivostok FM", (char*)"U_VLAD", &tmrpcm, &screen);
 StationTalkshow WKTT = StationTalkshow((char*)"WKTT Radio", (char*)"V_WKTT", &tmrpcm, &screen);
 
+StationAbstract* stationsCLASS[NUMBER_OF_STATIONS] = {
+    &CLASSIC_ROCK, &NON_STOP_POP, &RADIO_LOS_SANTOS, &CHANNEL_X, &WCTR, &REBEL_RADIO, &SOULWAX, &ELS, &WCC, &BLAINE_CR, 
+    &BLUE_ARK, &WORLDWIDE, &FLY_LO, &LOW_DOWN, &MIRROR_PARK, &SPACE, &VB_RADIO, &IF_99, &TUFF_GONG, &THE_BEAT, &MASSIVE_B, 
+    &JOURNEY, &ELECTRO_CHOC, &RADIO_BROCKER, &FUSION_FM, &LC_HARD_CORE, &JAZZ_NATION, &K109, &INTEGRITY, &LIBERTY_ROCK, 
+    &ACTUALIZATION, &THE_CLASSICS, &PLR, &RAMJAM, &SAN_JUAN_SOUNDS, &THE_VIBE, &VCFM, &VLADIVOSTOK, &WKTT,
+};
+//Needs to be array of pointers, as is Abstract class (would otherwise need to import std::vector)
+//Can't use array of references obviously, as the data would be lost once out of scope
+
 void setup()
 {
     randomSeed(analogRead(A0) / analogRead(A1) + 1);
@@ -102,46 +109,6 @@ void setup()
     tmrpcm.volume(0.5);
     //tmrpcm.quality(1);
     selectedStationIndex = random(NUMBER_OF_STATIONS);   //DON't -1 ! the max is EXCLUSIVE
-    
-    stationsCLASS[0] = &CLASSIC_ROCK;
-    stationsCLASS[1] = &NON_STOP_POP;
-    stationsCLASS[2] = &RADIO_LOS_SANTOS;
-    stationsCLASS[3] = &CHANNEL_X;
-    stationsCLASS[4] = &WCTR;
-    stationsCLASS[5] = &REBEL_RADIO;
-    stationsCLASS[6] = &SOULWAX;
-    stationsCLASS[7] = &ELS;
-    stationsCLASS[8] = &WCC;
-    stationsCLASS[9] = &BLAINE_CR;
-    stationsCLASS[10] = &BLUE_ARK;
-    stationsCLASS[11] = &WORLDWIDE;
-    stationsCLASS[12] = &FLY_LO;
-    stationsCLASS[13] = &LOW_DOWN;
-    stationsCLASS[14] = &MIRROR_PARK;
-    stationsCLASS[15] = &SPACE;
-    stationsCLASS[16] = &VB_RADIO;
-    stationsCLASS[17] = &IF_99;
-    stationsCLASS[18] = &TUFF_GONG;
-    stationsCLASS[19] = &THE_BEAT;
-    stationsCLASS[20] = &MASSIVE_B;
-    stationsCLASS[21] = &JOURNEY;
-    stationsCLASS[22] = &ELECTRO_CHOC;
-    stationsCLASS[23] = &RADIO_BROCKER;
-    stationsCLASS[24] = &FUSION_FM;
-    stationsCLASS[25] = &LC_HARD_CORE;
-    stationsCLASS[26] = &JAZZ_NATION;
-    stationsCLASS[27] = &K109;
-    stationsCLASS[28] = &INTEGRITY;
-    stationsCLASS[29] = &LIBERTY_ROCK;
-    stationsCLASS[30] = &ACTUALIZATION;
-    stationsCLASS[31] = &THE_CLASSICS;
-    stationsCLASS[32] = &PLR;
-    stationsCLASS[33] = &RAMJAM;
-    stationsCLASS[34] = &SAN_JUAN_SOUNDS;
-    stationsCLASS[35] = &THE_VIBE;
-    stationsCLASS[36] = &VCFM;
-    stationsCLASS[37] = &VLADIVOSTOK;
-    stationsCLASS[38] = &WKTT;
 
     //Not updating the screen pointer AFTER THE SCREEN HAS BEEN SETUP causes issues
     for(int i = 0; i < NUMBER_OF_STATIONS; i++){
