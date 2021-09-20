@@ -71,3 +71,11 @@ void StationAbstract::playNews(){
     sprintf(nameNews, "NEWS/%i.wav", selNews);
     this->audio->play(nameNews);
 }
+
+void StationAbstract::printStationName() {
+    this->screen->printStation(this->name);
+}
+
+void StationAbstract::printSongName(char* name) {
+    this->screen->printSong(name);
+}
