@@ -1,7 +1,7 @@
 #include "StationUnsplit.h"
 
 void StationUnsplit::play() {
-    this->screen->setLineUpdate(1, this->name);
+    this->printStationName();
     char trackSRC[18];
     strcpy(trackSRC, this->source);
     strcat(trackSRC, "/SRC.wav");
