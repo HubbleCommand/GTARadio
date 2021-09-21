@@ -30,7 +30,7 @@ void ScreenController::setLine(int lineNo, String text){
         //this->lcd->print(text);
         this->text[lineNo] = text;
         this->lcd->setCursor(0, lineNo);
-        this->lcd->print(this->text[lineNo].substring(0,this->x));  //TODO check this actually works with x length of the screen
+        this->lcd->print(this->text[lineNo].substring(0,this->x));
     }
     //We don't wanna go over...
 }  
