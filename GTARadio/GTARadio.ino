@@ -14,7 +14,7 @@
 //This is really only intended to be used with a Mega, as TMRpcm requires lots of space when dealing with high sample rate audio
 
 TMRpcm tmrpcm;
-ScreenController screen = ScreenController(0x27,20,4);    //0x27 for 20x4, 0x3f for 16x2
+ScreenController screen = ScreenController(LCD_ADDR,LCD_X,LCD_Y);    //0x27 for 20x4, 0x3f for 16x2
 Button butNextStation = Button(2);
 Button butPrevStation = Button(3);
 Button butNextSong = Button(40);
