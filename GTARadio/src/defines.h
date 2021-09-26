@@ -1,3 +1,8 @@
+//User Config to change as needed
+#define NUMBER_OF_STATIONS 39
+#define ROWS 2   //2 or 4
+
+//CONFIG DEFINES ONLY TOUCH IF YOU KNOW WHAT YOUR DOING
 #define SD_ChipSelectPin 4
 
 #if ((defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__)))
@@ -6,9 +11,6 @@
     #define TMRPCM_SPEAKER_PIN 9    //Use pin 9  on the UNO
 #endif
 
-#define NUMBER_OF_STATIONS 39
-
-#define ROWS 2   //Or 2
 #if ROWS == 2
     //If we only have two rows, cannot display all info. -1 is fine, as the ScreenController handles when line no is less than 0
     #define LCD_INTRO_LINE -1
