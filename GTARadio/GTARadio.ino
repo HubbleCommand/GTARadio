@@ -22,7 +22,6 @@ Button butPrevSong = Button(33);
 
 int selectedStationIndex;
 int lastPotState;
-int startTime = 0;
 
 //GTA V Stations
 StationSplit CLASSIC_ROCK = StationSplit((char*)"Los Santos Rock Radio", (char*)"01_CROCK", &tmrpcm, &screen);
