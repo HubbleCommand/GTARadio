@@ -15,10 +15,10 @@
 
 TMRpcm tmrpcm;
 ScreenController screen = ScreenController(LCD_ADDR,LCD_X,LCD_Y);    //0x27 for 20x4, 0x3f for 16x2
-Button butNextStation = Button(2);
-Button butPrevStation = Button(3);
-Button butNextSong = Button(40);
-Button butPrevSong = Button(41);
+Button butNextStation = Button(30);
+Button butPrevStation = Button(31);
+Button butNextSong = Button(32);
+Button butPrevSong = Button(33);
 
 int selectedStationIndex;
 int lastPotState;
@@ -110,27 +110,11 @@ void setup()
 void loop()
 {    
     if(butNextStation.stateChanged()){
-        stationsCLASS[selectedStationIndex]->stop();
-
-        if(selectedStationIndex >= NUMBER_OF_STATIONS - 1){
-            selectedStationIndex = 0;
-        } else {
-            selectedStationIndex++;
-        }
-        
-        stationsCLASS[selectedStationIndex]->play();
+        changeStation(true);
     }
 
     if(butPrevStation.stateChanged()){
-        stationsCLASS[selectedStationIndex]->stop();
-        
-        if(selectedStationIndex <= 0){
-            selectedStationIndex = NUMBER_OF_STATIONS - 1;
-        } else {
-            selectedStationIndex--;
-        }
-
-        stationsCLASS[selectedStationIndex]->play();
+        changeStation(false);
     }
 
     if(butNextSong.stateChanged()){     //TODO check if increasing button debounce time fixed the total crash if next / prev song is pushed too soon
@@ -155,4 +139,24 @@ void loop()
     if(!tmrpcm.isPlaying()){    //If no audio is playing, do something!
         stationsCLASS[selectedStationIndex]->play();
     }
+}
+
+void changeStation(bool up){
+    stationsCLASS[selectedStationIndex]->stop();
+    
+    if(up){
+        if(selectedStationIndex >= NUMBER_OF_STATIONS - 1){
+            selectedStationIndex = 0;
+        } else {
+            selectedStationIndex++;
+        }
+    } else {
+        if(selectedStationIndex <= 0){
+            selectedStationIndex = NUMBER_OF_STATIONS - 1;
+        } else {
+            selectedStationIndex--;
+        }
+    }
+    
+    stationsCLASS[selectedStationIndex]->play();
 }
