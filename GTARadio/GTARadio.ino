@@ -15,10 +15,10 @@
 
 TMRpcm tmrpcm;
 ScreenController screen = ScreenController(LCD_ADDR,LCD_X,LCD_Y);    //0x27 for 20x4, 0x3f for 16x2
-Button butNextStation = Button(30);
-Button butPrevStation = Button(31);
-Button butNextSong = Button(32);
-Button butPrevSong = Button(33);
+Button butNextStation = Button(44);
+Button butPrevStation = Button(45);
+Button butNextSong = Button(46);
+Button butPrevSong = Button(47);
 
 int selectedStationIndex;
 int lastPotState;
