@@ -24,7 +24,7 @@ int StationAbstract::countFiles(char* source){
 
         } else {
             count++;
-            this->screen->setLine(2, String(count));
+            this->screen->setLine(1, String(count));
         }
 
         entry.close();
