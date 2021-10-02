@@ -91,7 +91,7 @@ void setup()
     butPrevStation.setup();
 
     if (!SD.begin(SD_ChipSelectPin)) {  // see if the card is present and can be initialized:
-        screen.setLine(0, "SD ISSUE");
+        screen.setLine(1, "SD ISSUE");
         return;   // don't do anything more if not
     } else {
         screen.setLine(0, "GTA Radio");
