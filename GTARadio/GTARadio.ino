@@ -20,8 +20,13 @@ Button butPrevStation = Button(45);
 Button butNextSong = Button(46);
 Button butPrevSong = Button(47);
 
+Button butVolumUp = Button(42);
+Button butVolDown = Button(43);
+
 int selectedStationIndex;
 int lastPotState;
+int volumeG = 1;
+int maxVolume = 5;
 
 //GTA V Stations
 StationSplit CLASSIC_ROCK = StationSplit((char*)"Los Santos Rock Radio", (char*)"01_CROCK", &tmrpcm, &screen);
@@ -93,8 +98,7 @@ void setup()
     }
 
     tmrpcm.speakerPin = TMRPCM_SPEAKER_PIN;
-    tmrpcm.volume(0.5);
-    //tmrpcm.quality(1);
+    tmrpcm.setVolume(.5);
     selectedStationIndex = random(NUMBER_OF_STATIONS);   //DON't -1 ! the max is EXCLUSIVE
 
     //Not updating the screen pointer AFTER THE SCREEN HAS BEEN SETUP causes issues
@@ -124,15 +128,12 @@ void loop()
         stationsCLASS[selectedStationIndex]->prevSong();
     }
 
-    int reading = analogRead(A0);
-    if(abs(reading - lastPotState) > 50){
-        lastPotState = reading;
-        int volume = map(reading, 0, 1023, 0, 7);
-        tmrpcm.setVolume(volume);
+    if(butVolumUp.stateChanged()){     //TODO check if increasing button debounce time fixed the total crash if next / prev song is pushed too soon
+        changeVolume(true);
+    }
 
-        char tmpString[9];
-        sprintf(tmpString, "VOL :  %i", volume);
-        screen.setLine(LCD_VOL_LINE, tmpString);
+    if(butVolDown.stateChanged()){     //TODO check if increasing button debounce time fixed the total crash if next / prev song is pushed too soon
+        changeVolume(false);
     }
 
     if(!tmrpcm.isPlaying()){    //If no audio is playing, do something!
@@ -158,4 +159,18 @@ void changeStation(bool up){
     }
     
     stationsCLASS[selectedStationIndex]->play();
+}
+
+void changeVolume(bool up){
+    if(up){
+        if(volumeG < maxVolume){
+            volumeG++;
+        }
+    } else {
+        
+        if(volumeG > 0){
+            volumeG--;
+        }
+    }
+    tmrpcm.setVolume(volumeG);
 }
