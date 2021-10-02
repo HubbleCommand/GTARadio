@@ -3,12 +3,12 @@
 #define ROWS 2   //2 or 4
 
 //CONFIG DEFINES ONLY TOUCH IF YOU KNOW WHAT YOUR DOING
-#define SD_ChipSelectPin 4
-
 #if ((defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__)))
     #define TMRPCM_SPEAKER_PIN 11   //Use pin 11 on the MEGA
+    #define SD_ChipSelectPin 53     //The CS pin for SPI is best on pin 53 on the Mega
 #else
     #define TMRPCM_SPEAKER_PIN 9    //Use pin 9  on the UNO
+    #define SD_ChipSelectPin 4      //The CS Pin on Uno - like is 4
 #endif
 
 #if ROWS == 2
