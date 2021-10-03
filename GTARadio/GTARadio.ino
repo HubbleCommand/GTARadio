@@ -19,12 +19,10 @@ Button butNextStation = Button(44);
 Button butPrevStation = Button(45);
 Button butNextSong = Button(46);
 Button butPrevSong = Button(47);
-
 Button butVolumUp = Button(42);
 Button butVolDown = Button(43);
 
 int selectedStationIndex;
-int lastPotState;
 int volumeG = 1;
 int maxVolume = 5;
 
@@ -167,7 +165,6 @@ void changeVolume(bool up){
             volumeG++;
         }
     } else {
-        
         if(volumeG > 0){
             volumeG--;
         }
