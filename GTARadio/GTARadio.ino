@@ -100,11 +100,10 @@ void setup()
     selectedStationIndex = random(NUMBER_OF_STATIONS);   //DON't -1 ! the max is EXCLUSIVE
 
     //Not updating the screen pointer AFTER THE SCREEN HAS BEEN SETUP causes issues
-    for(int i = 0; i < NUMBER_OF_STATIONS; i++){
+    /*for(int i = 0; i < NUMBER_OF_STATIONS; i++){
         stationsCLASS[i]->screen = &screen;
-    }
+    }*/
 
-    selectedStationIndex = 0;
     stationsCLASS[selectedStationIndex]->play();
 }
 
