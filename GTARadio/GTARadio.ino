@@ -80,35 +80,51 @@ StationAbstract* stationsCLASS[NUMBER_OF_STATIONS] = {
 //Needs to be array of pointers, as is Abstract class (would otherwise need to import std::vector)
 //Can't use array of references obviously, as the data would be lost once out of scope
 
+bool SDCardReady = false;
+int LastSDCardCheckTimer = 0;
+int SDCardErrorCounter = 0;
+String msgStart = "SD ISSUE : ";
+
 void setup()
 {
     randomSeed(analogRead(A0) / analogRead(A1) + 1);
 
-    screen.setup();
+    screen.setup(); //NOTE : used to have to reset Screen pointer with all stations with `stationsCLASS[i]->screen = &screen;`, but don't need to anymore, wierd
     butNextStation.setup();
     butPrevStation.setup();
-
-    if (!SD.begin(SD_ChipSelectPin)) {  // see if the card is present and can be initialized:
-        screen.setLine(1, "SD ISSUE");
-        return;   // don't do anything more if not
-    } else {
-        screen.setLine(0, "GTA Radio");
-    }
 
     tmrpcm.speakerPin = TMRPCM_SPEAKER_PIN;
     tmrpcm.setVolume(.5);
     selectedStationIndex = random(NUMBER_OF_STATIONS);   //DON't -1 ! the max is EXCLUSIVE
 
-    //Not updating the screen pointer AFTER THE SCREEN HAS BEEN SETUP causes issues
-    /*for(int i = 0; i < NUMBER_OF_STATIONS; i++){
-        stationsCLASS[i]->screen = &screen;
-    }*/
-
-    stationsCLASS[selectedStationIndex]->play();
+    if (!SD.begin(SD_ChipSelectPin)) {  // see if the card is present and can be initialized:
+        screen.setLine(1, "SD ISSUE");
+        //return;   // don't do anything more if not
+    } else {
+        SDCardReady = true;
+        stationsCLASS[selectedStationIndex]->play();
+        screen.setLine(0, "GTA Radio");
+    }
 }
 
 void loop()
 {    
+    if(!SDCardReady){
+        if(LastSDCardCheckTimer >= 100){
+            LastSDCardCheckTimer = 0;
+            SDCardErrorCounter++;
+            if (!SD.begin(SD_ChipSelectPin)) {  // see if the card is present and can be initialized:
+                //screen.setLine(1, "SD ISSUE : " + SDCardErrorCounter);
+                screen.setLine(1, msgStart + SDCardErrorCounter);
+                return;   // don't do anything more if not
+            }
+        } else {
+            LastSDCardCheckTimer++;
+        }
+        
+        return;
+    }
+
     if(butNextStation.stateChanged()){
         changeStation(true);
     }
