@@ -14,7 +14,7 @@ void StationUnsplit::play() {
 
         this->audio->play(trackSRC, randomStart);
     }
-    this->screen->setLineUpdate(2, "");
+    this->printSongName(" ");
     this->audio->loop(1);
 }
 
