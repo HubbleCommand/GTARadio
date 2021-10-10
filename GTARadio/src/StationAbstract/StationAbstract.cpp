@@ -13,6 +13,7 @@ StationAbstract::StationAbstract(char* name, char* source, TMRpcm* audio, Screen
 }
 
 int StationAbstract::countFiles(char* source){
+    this->screen->setLineUpdate(1, " ");
     int count = 0;
 
     File  dir = SD.open(source);
