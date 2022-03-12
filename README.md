@@ -1,6 +1,13 @@
 # GTA Radio Arduino
 Arduino project to make a "radio" that plays the music from GTA radio stations. After lots of work & time, all GTA V and GTA IV stations have been ripped and work!
 
+TODO when left for a while, appears to crash. Might be memory leak?
+Might be caused by ScreenController String
+Or unsolvable by TMRh20 audio library
+
+NOTE: this project is shelved for the time being, as there are issues with the purchased audio amps that can go on the fritz
+Doing it on the Pi instead which, while overpowered, has all of the audio gear internally, as well as storage.
+
 # Useful notes
 File and directory names cannot be longer than 8 characters. A full path can be longer than 8 characters.
 
