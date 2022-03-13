@@ -7,6 +7,7 @@ Or unsolvable by TMRh20 audio library
 
 NOTE: this project is shelved for the time being, as there are issues with the purchased audio amps that can go on the fritz
 Doing it on the Pi instead which, while overpowered, has all of the audio gear internally, as well as storage.
+It can be found here : https://github.com/HubbleCommand/GTARadioPi.
 
 # Useful notes
 File and directory names cannot be longer than 8 characters. A full path can be longer than 8 characters.
